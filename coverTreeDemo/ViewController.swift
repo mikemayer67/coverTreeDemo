@@ -1,5 +1,5 @@
 //
-//  CoverTreeViewController.swift
+//  ViewController.swift
 //  coverTreeDemo
 //
 //  Created by Mike Mayer on 9/8/17.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class CoverTreeViewController: NSViewController, NSTextFieldDelegate
+class ViewController: NSViewController, NSTextFieldDelegate
 {
   var document : Document?
     
