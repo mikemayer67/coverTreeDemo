@@ -11,7 +11,7 @@ import Cocoa
 class CoverTreeViewController: NSViewController, NSTextFieldDelegate
 {
   var document : Document?
-  
+    
   dynamic private(set) var generated = false
   dynamic private(set) var randomData = true
   dynamic private(set) var editingText = false
@@ -116,13 +116,7 @@ class CoverTreeViewController: NSViewController, NSTextFieldDelegate
   }
   
   func control(_ control: NSControl, isValidObject obj: Any?) -> Bool {
-    //    guard obj != nil else { return false }
-    if obj == nil
-    {
-      let textField = control as! NSTextField
-      textField.stringValue = "0"
-      return false
-    }
+    guard obj != nil else { return false }
     return true
   }
   
