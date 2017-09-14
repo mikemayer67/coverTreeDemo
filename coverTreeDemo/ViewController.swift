@@ -10,15 +10,25 @@ import Cocoa
 
 class ViewController: NSViewController, NSTextFieldDelegate
 {
-  var document : Document?
-    
-  dynamic private(set) var generated = false
-  dynamic private(set) var randomData = true
-  dynamic private(set) var editingText = false
+  // MARK: - Shared Attributes
+  
+  var document : Document!
+  
   dynamic              var randomizeDemoData = true
   dynamic              var dataDimension = 2
   dynamic              var dataCount = 20
   dynamic              var animationStep = 20
+  
+  let demos = [
+    "Demo Set 1" : DataSet(Tuple(50), Tuple(25), Tuple(97), Tuple(32), Tuple(95), Tuple(8), Tuple(4), Tuple(12), Tuple(42), Tuple(60)),
+    "Demo Set 2" : DataSet(Tuple(0,0), Tuple(1,0), Tuple(1,1), Tuple(2,3), Tuple(0.5,4.5), Tuple(-1.25, 3.0))
+  ]
+
+  // MARK: - Input View Bindings/Outlets
+    
+  dynamic private(set) var generated = false
+  dynamic private(set) var randomData = true
+  dynamic private(set) var generateButtonEnabled = true
   
   @IBOutlet weak var dataSourcePopup: NSPopUpButton!
   @IBOutlet weak var dataSourceFinal: NSTextField!
@@ -26,13 +36,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
   
-  let demos = [
-    "Demo Set 1" : DataSet(Tuple(50), Tuple(25), Tuple(97), Tuple(32), Tuple(95), Tuple(8), Tuple(4), Tuple(12), Tuple(42), Tuple(60)),
-    "Demo Set 2" : DataSet(Tuple(0,0), Tuple(1,0), Tuple(1,1), Tuple(2,3), Tuple(0.5,4.5), Tuple(-1.25, 3.0))
-  ]
-  
-  private(set) var dataDimensionToolTip : String?
-  private(set) var dataCountToolTip     : String?
+  // MARK: - Input View Methods
   
   override func viewDidLoad()
   {
@@ -61,12 +65,12 @@ class ViewController: NSViewController, NSTextFieldDelegate
     }
     
     if let minDim = (dataDimensionText.formatter as! NumberFormatter).minimum,
-      let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
+       let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
     {
       dataDimensionText.toolTip = "Valid range: \(minDim)-\(maxDim)"
     }
     if let minCount = (dataCountText.formatter as! NumberFormatter).minimum,
-      let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
+       let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
     {
       dataCountText.toolTip     = "Valid range: \(minCount)-\(maxCount)"
     }
@@ -75,13 +79,24 @@ class ViewController: NSViewController, NSTextFieldDelegate
     randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
   }
   
+  override func viewDidAppear()
+  {
+    super.viewDidAppear()
+    document = view.window?.windowController?.document as? Document!
+  }
+  
   @IBAction func handleDataSource(_ sender: NSPopUpButton)
   {
     randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
   }
   
+  
   @IBAction func handleGenerate(_ sender: NSButton)
   {
+    generateButtonEnabled = false
+
+    // update user defaults
+    
     let defaults = UserDefaults.standard
     defaults.set(true, forKey: "initialized")
     defaults.set(dataSourcePopup.indexOfSelectedItem, forKey: "dataSource")
@@ -89,36 +104,65 @@ class ViewController: NSViewController, NSTextFieldDelegate
     defaults.set(dataDimension, forKey: "dataDimension")
     defaults.set(dataCount, forKey:"dataCount")
     
-    let dataSource = dataSourcePopup.titleOfSelectedItem!
+    // compute/lookup data sample
     
-    if dataSourcePopup.indexOfSelectedItem > 0,
-      randomizeDemoData
+    let dataSource      = dataSourcePopup.titleOfSelectedItem!
+    
+    dataSourceFinal.stringValue = dataSource
+
+    var data : DataSet!
+
+    switch dataSourcePopup.indexOfSelectedItem
     {
-      dataSourceFinal.stringValue = "\(dataSource) [randomized]"
+    case 0:
+      
+      var tuples = [Tuple]()
+      
+      for _ in 1...dataCount
+      {
+        var coord = [Double]()
+        for _ in 1...dataDimension
+        {
+          let x = 0.1 * Double( arc4random_uniform(2000) ) - 100.0
+          coord.append(x)
+        }
+        let tuple = Tuple(coordinates:coord)
+        tuples.append(tuple)
+      }
+      
+      data = DataSet(tuples:tuples)
+      
+    default:
+      
+      data = demos[ dataSource ]!
+      dataCount     = data.tuples.count
+      dataDimension = data.dim
+      
+      if randomizeDemoData
+      {
+        data.randomize()
+        dataSourceFinal.stringValue = "\(dataSource) [randomized]"
+      }
     }
-    else
-    {
-      dataSourceFinal.stringValue = dataSource
-    }
+    
+    // update views
     
     animationSlider.maxValue = Double(dataCount)
     animationSlider.numberOfTickMarks = dataCount
     animationStep = dataCount
+    
+    // do the work
+    
+    document.coverTree.generate(dataSet:data)
+    
     generated = true
   }
   
-  override func controlTextDidEndEditing(_ obj: Notification) {
-    editingText = false
-  }
+  override func controlTextDidEndEditing  (_ obj: Notification) { generateButtonEnabled = true }
+  override func controlTextDidBeginEditing(_ obj: Notification) { generateButtonEnabled = false  }
   
-  override func controlTextDidBeginEditing(_ obj: Notification) {
-    editingText = true
-  }
+  func control(_ control: NSControl, isValidObject obj: Any?) -> Bool { return obj != nil }
   
-  func control(_ control: NSControl, isValidObject obj: Any?) -> Bool {
-    guard obj != nil else { return false }
-    return true
-  }
-  
+  // MARK: - 
   
 }
