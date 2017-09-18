@@ -25,7 +25,6 @@ class Document: NSDocument
   
   override func data(ofType typeName: String) throws -> Data
   {
-    Swift.print("\(self)::data(ofType:\(typeName)")
     return NSKeyedArchiver.archivedData(withRootObject: coverTree)
   }
   

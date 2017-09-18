@@ -954,20 +954,6 @@
                                             </binding>
                                         </connections>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvq-fS-p63">
-                                        <rect key="frame" x="-1" y="40" width="987" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="17" id="JlS-ry-hWD"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="bhO-4z-jsb">
-                                            <font key="font" metaFont="system" size="10"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="5gI-5U-AMq" name="value" keyPath="self.documentID" id="1pm-Zw-ROY"/>
-                                        </connections>
-                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ola-Zm-BfY" firstAttribute="leading" secondItem="COz-6p-U8e" secondAttribute="trailing" constant="11" id="1PA-GQ-ryL"/>
@@ -1198,7 +1184,6 @@
                             <constraint firstAttribute="trailing" secondItem="CSJ-jc-m0U" secondAttribute="trailing" id="BYW-5k-kOV"/>
                             <constraint firstItem="CSJ-jc-m0U" firstAttribute="top" secondItem="CDF-DU-GYB" secondAttribute="top" id="Cmg-NA-sIE"/>
                             <constraint firstAttribute="bottom" secondItem="1eu-CV-b8O" secondAttribute="bottom" constant="3" id="FKT-Tq-svD"/>
-                            <constraint firstItem="mvq-fS-p63" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="1" id="N29-fB-Y0T"/>
                             <constraint firstItem="RBK-Jb-eAC" firstAttribute="top" secondItem="sMP-kh-Ikz" secondAttribute="bottom" constant="8" id="Ncv-Re-pO0"/>
                             <constraint firstItem="CDF-DU-GYB" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="55" id="Ssg-6H-jjU"/>
                             <constraint firstItem="CSJ-jc-m0U" firstAttribute="bottom" secondItem="sMP-kh-Ikz" secondAttribute="bottom" id="Ye0-nN-u5h"/>
@@ -1207,11 +1192,9 @@
                             <constraint firstItem="T5n-s8-As3" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="gy6-Zb-LkU"/>
                             <constraint firstItem="T5n-s8-As3" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="-4" id="hEW-Cj-tLl"/>
                             <constraint firstAttribute="bottom" secondItem="RBK-Jb-eAC" secondAttribute="bottom" constant="1" id="lSD-xq-1EB"/>
-                            <constraint firstItem="mvq-fS-p63" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="-1" id="m8y-by-ET3"/>
                             <constraint firstItem="CSJ-jc-m0U" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="ngf-VC-xyN"/>
                             <constraint firstAttribute="trailing" secondItem="T5n-s8-As3" secondAttribute="trailing" id="pVr-UA-Hob"/>
                             <constraint firstAttribute="trailing" secondItem="1eu-CV-b8O" secondAttribute="trailing" constant="14" id="tow-XO-bNb"/>
-                            <constraint firstAttribute="trailing" secondItem="mvq-fS-p63" secondAttribute="trailing" id="zIM-G5-Esr"/>
                         </constraints>
                     </view>
                     <connections>

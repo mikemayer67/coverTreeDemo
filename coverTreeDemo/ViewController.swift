@@ -18,15 +18,14 @@ class ViewController: NSViewController, NSTextFieldDelegate
   dynamic              var dataDimension = 2
   dynamic              var dataCount = 20
   dynamic              var animationStep = 20
-  dynamic              var documentID = "???"
   
   let demos = [
     "Demo Set 1" : DataSet(Tuple(50), Tuple(25), Tuple(97), Tuple(32), Tuple(95), Tuple(8), Tuple(4), Tuple(12), Tuple(42), Tuple(60)),
     "Demo Set 2" : DataSet(Tuple(0,0), Tuple(1,0), Tuple(1,1), Tuple(2,3), Tuple(0.5,4.5), Tuple(-1.25, 3.0))
   ]
-
+  
   // MARK: - Input View Bindings/Outlets
-    
+  
   dynamic private(set) var generated = false
   dynamic private(set) var randomData = true
   dynamic private(set) var generateButtonEnabled = true
@@ -39,62 +38,58 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   // MARK: - Input View Methods
   
-  override func viewDidLoad()
-  {
-    Swift.print("ViewController::viewDidLoad");
-    super.viewDidLoad()
-    
-    for (key,_) in demos
-    {
-      dataSourcePopup.addItem(withTitle: key)
-    }
-    
-    let defaults = UserDefaults.standard
-    if defaults.bool(forKey: "initialized")
-    {
-      var dataSourceSelection = defaults.integer(forKey: "dataSource")
-      randomizeDemoData       = defaults.bool(forKey: "randomizeDemoData")
-      dataDimension           = defaults.integer(forKey: "dataDimension")
-      dataCount               = defaults.integer(forKey:"dataCount")
-      
-      if dataDimension < 1 { dataDimension = 1 }
-      if dataCount     < 1 { dataCount     = 1 }
-      
-      if dataSourceSelection < 0           { dataSourceSelection = 0 }
-      if dataSourceSelection > demos.count { dataSourceSelection = 0 }
-      
-      dataSourcePopup.selectItem(at: dataSourceSelection)
-    }
-    
-    if let minDim = (dataDimensionText.formatter as! NumberFormatter).minimum,
-       let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
-    {
-      dataDimensionText.toolTip = "Valid range: \(minDim)-\(maxDim)"
-    }
-    if let minCount = (dataCountText.formatter as! NumberFormatter).minimum,
-       let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
-    {
-      dataCountText.toolTip     = "Valid range: \(minCount)-\(maxCount)"
-    }
-    
-    generated  = false
-    randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
-  }
   
-  override func viewDidAppear()
+  override func viewWillAppear()
   {
-    Swift.print("ViewController::viewDidAppear");
-    super.viewDidAppear()
+    super.viewWillAppear()
     document = view.window?.windowController?.document as? Document!
+    
     let ct = document.coverTree
-    if ct.generated
+    generated = ct.generated
+    
+    if generated
     {
-      generated = true
       dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
       dataDimension = ct.dim
       dataCount     = ct.count
     }
-    self.documentID = "\(document!)"
+    else
+    {
+      for (key,_) in demos
+      {
+        dataSourcePopup.addItem(withTitle: key)
+      }
+      
+      let defaults = UserDefaults.standard
+      if defaults.bool(forKey: "initialized")
+      {
+        var dataSourceSelection = defaults.integer(forKey: "dataSource")
+        randomizeDemoData       = defaults.bool(forKey: "randomizeDemoData")
+        dataDimension           = defaults.integer(forKey: "dataDimension")
+        dataCount               = defaults.integer(forKey:"dataCount")
+        
+        if dataDimension < 1 { dataDimension = 1 }
+        if dataCount     < 1 { dataCount     = 1 }
+        
+        if dataSourceSelection < 0           { dataSourceSelection = 0 }
+        if dataSourceSelection > demos.count { dataSourceSelection = 0 }
+        
+        dataSourcePopup.selectItem(at: dataSourceSelection)
+      }
+      
+      if let minDim = (dataDimensionText.formatter as! NumberFormatter).minimum,
+        let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
+      {
+        dataDimensionText.toolTip = "Valid range: \(minDim)-\(maxDim)"
+      }
+      if let minCount = (dataCountText.formatter as! NumberFormatter).minimum,
+        let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
+      {
+        dataCountText.toolTip     = "Valid range: \(minCount)-\(maxCount)"
+      }
+      
+      randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
+    }
   }
   
   @IBAction func handleDataSource(_ sender: NSPopUpButton)
@@ -106,7 +101,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
   @IBAction func handleGenerate(_ sender: NSButton)
   {
     generateButtonEnabled = false
-
+    
     // update user defaults
     
     let defaults = UserDefaults.standard
@@ -121,9 +116,9 @@ class ViewController: NSViewController, NSTextFieldDelegate
     let dataSource      = dataSourcePopup.titleOfSelectedItem!
     
     dataSourceFinal.stringValue = dataSource
-
+    
     var data : DataSet!
-
+    
     switch dataSourcePopup.indexOfSelectedItem
     {
     case 0:
@@ -167,7 +162,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
     
     document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue)
     document.updateChangeCount(.changeDone)
-
+    
     generated = true
   }
   
@@ -178,10 +173,5 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   // MARK: - 
   
-  override func restoreState(with coder: NSCoder)
-  {
-    Swift.print("VC::restoreState")
-    super.restoreState(with: coder)
-  }
   
 }

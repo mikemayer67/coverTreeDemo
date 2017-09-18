@@ -15,7 +15,6 @@
 		279072541F62D6560017335B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072531F62D6560017335B /* ViewController.swift */; };
 		2790725A1F637FA10017335B /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072591F637FA10017335B /* DataSet.swift */; };
 		27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */; };
-		27FE8C491F6CEC5700F07A53 /* coverTreeDemo.app in Resources */ = {isa = PBXBuildFile; fileRef = 27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		279072591F637FA10017335B /* DataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
 		27B830461F6F08DF007D4606 /* coverTreeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coverTreeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrapicTreeView.swift; sourceTree = "<group>"; };
-		27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = coverTreeDemo.app; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +61,6 @@
 				279072531F62D6560017335B /* ViewController.swift */,
 				279072591F637FA10017335B /* DataSet.swift */,
 				27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */,
-				27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */,
 			);
 			path = coverTreeDemo;
 			sourceTree = "<group>";
@@ -135,7 +132,6 @@
 			files = (
 				274E20761F5FAC600021A050 /* Assets.xcassets in Resources */,
 				274E20791F5FAC600021A050 /* Main.storyboard in Resources */,
-				27FE8C491F6CEC5700F07A53 /* coverTreeDemo.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
