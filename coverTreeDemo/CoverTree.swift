@@ -21,7 +21,6 @@ class CoverTree: NSObject, NSCoding
   override init()
   {
     super.init()
-    print("CoverTree::init")
   }
   
   required init?(coder decoder:NSCoder)
@@ -37,16 +36,12 @@ class CoverTree: NSObject, NSCoding
       NSLog("Failed to decode CoverTree:: invalid format")
       return nil
     }
-    
-    print("CoverTree::init(coder)")
   }
   
   func encode(with coder: NSCoder)
   {
     coder.encode(self.dataSet,    forKey:"data"  )
     coder.encode(self.dataSource, forKey:"source")
-    
-    print("CoverTree::encode")
   }
   
   func generate( dataSet : DataSet, source : String? = nil) -> Void
