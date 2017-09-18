@@ -8,9 +8,11 @@
 
 import Foundation
 
-class Tuple
+class Tuple : NSObject, NSCoding
 {
   let coord : [Double]
+  
+  var dim : Int { return coord.count }
   
   init( _ x:Double... )
   {
@@ -22,7 +24,26 @@ class Tuple
     self.coord = coordinates
   }
   
-  var dim : Int { return coord.count }
+  required init?(coder aDecoder: NSCoder)
+  {
+    guard aDecoder.containsValue(forKey: "coord") else { return nil }
+    
+    if let t1 = aDecoder.decodeObject(forKey: "coord") as? NSArray,
+      let t2 = t1 as? Array<Double>
+    {
+      coord = t2
+    }
+    else
+    {
+      return nil
+    }
+  }
+  
+  func encode(with aCoder: NSCoder)
+  {
+    aCoder.encode(coord as NSArray, forKey: "coord")
+  }
+  
   
   func dist( x : Tuple ) -> Double
   {
@@ -36,16 +57,18 @@ class Tuple
   }
 }
 
-class DataSet
+class DataSet : NSObject, NSCoding
 {
   private(set) var tuples : [Tuple]
   let dim : Int
+  
+  var count : Int { return tuples.count }
   
   convenience init?(_ tuples:Tuple... )
   {
     self.init(tuples:tuples)
   }
-    
+  
   init?( tuples : [Tuple])
   {
     if tuples.count == 0 { return nil }
@@ -59,6 +82,30 @@ class DataSet
     {
       if t.dim != self.dim { return nil }
     }
+  }
+  
+  required init?(coder aDecoder: NSCoder)
+  {
+    guard aDecoder.containsValue(forKey: "dim")  else { return nil }
+    guard aDecoder.containsValue(forKey: "data") else { return nil }
+    
+    dim = aDecoder.decodeInteger(forKey: "dim")
+    
+    if let t1 = aDecoder.decodeObject(forKey: "data") as? NSArray,
+      let t2 = t1 as? Array<Tuple>
+    {
+      self.tuples = t2
+    }
+    else
+    {
+      return nil
+    }
+  }
+  
+  func encode(with aCoder: NSCoder)
+  {
+    aCoder.encode(dim, forKey: "dim")
+    aCoder.encode(tuples as NSArray, forKey: "data")
   }
   
   func randomize() -> Void

@@ -18,6 +18,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
   dynamic              var dataDimension = 2
   dynamic              var dataCount = 20
   dynamic              var animationStep = 20
+  dynamic              var documentID = "???"
   
   let demos = [
     "Demo Set 1" : DataSet(Tuple(50), Tuple(25), Tuple(97), Tuple(32), Tuple(95), Tuple(8), Tuple(4), Tuple(12), Tuple(42), Tuple(60)),
@@ -40,6 +41,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   override func viewDidLoad()
   {
+    Swift.print("ViewController::viewDidLoad");
     super.viewDidLoad()
     
     for (key,_) in demos
@@ -81,8 +83,18 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   override func viewDidAppear()
   {
+    Swift.print("ViewController::viewDidAppear");
     super.viewDidAppear()
     document = view.window?.windowController?.document as? Document!
+    let ct = document.coverTree
+    if ct.generated
+    {
+      generated = true
+      dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
+      dataDimension = ct.dim
+      dataCount     = ct.count
+    }
+    self.documentID = "\(document!)"
   }
   
   @IBAction func handleDataSource(_ sender: NSPopUpButton)
@@ -153,8 +165,9 @@ class ViewController: NSViewController, NSTextFieldDelegate
     
     // do the work
     
-    document.coverTree.generate(dataSet:data)
-    
+    document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue)
+    document.updateChangeCount(.changeDone)
+
     generated = true
   }
   
@@ -164,5 +177,11 @@ class ViewController: NSViewController, NSTextFieldDelegate
   func control(_ control: NSControl, isValidObject obj: Any?) -> Bool { return obj != nil }
   
   // MARK: - 
+  
+  override func restoreState(with coder: NSCoder)
+  {
+    Swift.print("VC::restoreState")
+    super.restoreState(with: coder)
+  }
   
 }

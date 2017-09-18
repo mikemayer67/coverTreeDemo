@@ -10,42 +10,48 @@ import Cocoa
 
 class CoverTree: NSObject, NSCoding
 {
-  private(set) var creationStamp = ""
+  private(set) var dataSet    : DataSet?
+  private(set) var dataSource : String?
   
-  var generated : Bool
-  {
-    return creationStamp.isEmpty == false
-  }
+  var dim   : Int  { return dataSet?.dim   ?? 0 }
+  var count : Int  { return dataSet?.count ?? 0 }
+  
+  var generated   : Bool { return dataSet != nil }
   
   override init()
   {
     super.init()
+    print("CoverTree::init")
   }
   
   required init?(coder decoder:NSCoder)
   {
-    if let cs = decoder.decodeObject(forKey: "creation") as? String
+    if let data = decoder.decodeObject(forKey: "data"  ) as? DataSet,
+      let  src  = decoder.decodeObject(forKey: "source") as? String
     {
-      self.creationStamp = cs
+      self.dataSet    = data
+      self.dataSource = src
     }
     else
     {
       NSLog("Failed to decode CoverTree:: invalid format")
       return nil
     }
+    
+    print("CoverTree::init(coder)")
   }
   
   func encode(with coder: NSCoder)
   {
-    coder.encode(self.creationStamp, forKey:"creation")
+    coder.encode(self.dataSet,    forKey:"data"  )
+    coder.encode(self.dataSource, forKey:"source")
+    
+    print("CoverTree::encode")
   }
   
-  func generate( dataSet : DataSet) -> Void
+  func generate( dataSet : DataSet, source : String? = nil) -> Void
   {
-    let df = DateFormatter()
-    df.dateStyle = .full
-    df.timeStyle = .full
-    
-    creationStamp = df.string(from: Date())
+    self.dataSet    = dataSet
+    self.dataSource = source ?? "unknown"
   }
 }

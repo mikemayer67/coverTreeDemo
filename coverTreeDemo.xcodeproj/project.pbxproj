@@ -15,10 +15,10 @@
 		279072541F62D6560017335B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072531F62D6560017335B /* ViewController.swift */; };
 		2790725A1F637FA10017335B /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072591F637FA10017335B /* DataSet.swift */; };
 		27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */; };
+		27FE8C491F6CEC5700F07A53 /* coverTreeDemo.app in Resources */ = {isa = PBXBuildFile; fileRef = 27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		274E206C1F5FAC600021A050 /* coverTreeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coverTreeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E206F1F5FAC600021A050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274E20731F5FAC600021A050 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		274E20751F5FAC600021A050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -27,7 +27,9 @@
 		279072511F62D61F0017335B /* CoverTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTree.swift; sourceTree = "<group>"; };
 		279072531F62D6560017335B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		279072591F637FA10017335B /* DataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
+		27B830461F6F08DF007D4606 /* coverTreeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coverTreeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrapicTreeView.swift; sourceTree = "<group>"; };
+		27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = coverTreeDemo.app; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,16 +47,8 @@
 			isa = PBXGroup;
 			children = (
 				274E206E1F5FAC600021A050 /* coverTreeDemo */,
-				274E206D1F5FAC600021A050 /* Products */,
+				27B830461F6F08DF007D4606 /* coverTreeDemo.app */,
 			);
-			sourceTree = "<group>";
-		};
-		274E206D1F5FAC600021A050 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				274E206C1F5FAC600021A050 /* coverTreeDemo.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		274E206E1F5FAC600021A050 /* coverTreeDemo */ = {
@@ -69,6 +63,7 @@
 				279072531F62D6560017335B /* ViewController.swift */,
 				279072591F637FA10017335B /* DataSet.swift */,
 				27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */,
+				27FE8C481F6CEC5700F07A53 /* coverTreeDemo.app */,
 			);
 			path = coverTreeDemo;
 			sourceTree = "<group>";
@@ -90,7 +85,7 @@
 			);
 			name = coverTreeDemo;
 			productName = coverTreeDemo;
-			productReference = 274E206C1F5FAC600021A050 /* coverTreeDemo.app */;
+			productReference = 27B830461F6F08DF007D4606 /* coverTreeDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +119,7 @@
 				Base,
 			);
 			mainGroup = 274E20631F5FAC600021A050;
-			productRefGroup = 274E206D1F5FAC600021A050 /* Products */;
+			productRefGroup = 274E20631F5FAC600021A050;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -140,6 +135,7 @@
 			files = (
 				274E20761F5FAC600021A050 /* Assets.xcassets in Resources */,
 				274E20791F5FAC600021A050 /* Main.storyboard in Resources */,
+				27FE8C491F6CEC5700F07A53 /* coverTreeDemo.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
