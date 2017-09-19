@@ -24,7 +24,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
     "Demo Set 2" : DataSet(Tuple(0,0), Tuple(1,0), Tuple(1,1), Tuple(2,3), Tuple(0.5,4.5), Tuple(-1.25, 3.0))
   ]
   
-  // MARK: - Input View Bindings/Outlets
+  // MARK: - Bindings/Outlets
   
   dynamic private(set) var generated = false
   dynamic private(set) var randomData = true
@@ -36,8 +36,14 @@ class ViewController: NSViewController, NSTextFieldDelegate
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
   
+  @IBOutlet weak var nodeTableController : NodeTableController!
+  
   // MARK: - Input View Methods
   
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+  }
   
   override func viewWillAppear()
   {
@@ -45,13 +51,22 @@ class ViewController: NSViewController, NSTextFieldDelegate
     document = view.window?.windowController?.document as? Document!
     
     let ct = document.coverTree
-    generated = ct.generated
     
+    generated = ct.generated
     if generated
     {
       dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
       dataDimension = ct.dim
       dataCount     = ct.count
+      
+      animationSlider.maxValue = Double(dataCount)
+      animationSlider.numberOfTickMarks = dataCount
+      animationStep = dataCount
+      
+      nodeTableController.coverTree = ct
+      nodeTableController.rows      = dataCount
+      
+      print("dataDimension:\(dataDimension) dataCount:\(dataCount)")
     }
     else
     {
@@ -152,16 +167,19 @@ class ViewController: NSViewController, NSTextFieldDelegate
       }
     }
     
+    // do the work
+    
+    document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue)
+    document.updateChangeCount(.changeDone)
+    
     // update views
     
     animationSlider.maxValue = Double(dataCount)
     animationSlider.numberOfTickMarks = dataCount
     animationStep = dataCount
     
-    // do the work
-    
-    document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue)
-    document.updateChangeCount(.changeDone)
+    nodeTableController.coverTree = document.coverTree
+    nodeTableController.rows      = dataCount
     
     generated = true
   }
@@ -171,7 +189,9 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   func control(_ control: NSControl, isValidObject obj: Any?) -> Bool { return obj != nil }
   
-  // MARK: - 
-  
+  @IBAction func handleAnimationSlider(_ sender: NSSlider)
+  {
+    nodeTableController.rows = animationStep
+  }
   
 }

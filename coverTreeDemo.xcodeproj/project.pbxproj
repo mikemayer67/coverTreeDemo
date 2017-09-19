@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274632B61F71507800EC51B4 /* NodeTableController.swift */; };
 		274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E206F1F5FAC600021A050 /* AppDelegate.swift */; };
 		274E20741F5FAC600021A050 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E20731F5FAC600021A050 /* Document.swift */; };
 		274E20761F5FAC600021A050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E20751F5FAC600021A050 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		274632B61F71507800EC51B4 /* NodeTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeTableController.swift; sourceTree = "<group>"; };
 		274E206F1F5FAC600021A050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274E20731F5FAC600021A050 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		274E20751F5FAC600021A050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				279072531F62D6560017335B /* ViewController.swift */,
 				279072591F637FA10017335B /* DataSet.swift */,
 				27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */,
+				274632B61F71507800EC51B4 /* NodeTableController.swift */,
 			);
 			path = coverTreeDemo;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */,
 				279072521F62D61F0017335B /* CoverTree.swift in Sources */,
 				274E20741F5FAC600021A050 /* Document.swift in Sources */,
+				274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */,
 				2790725A1F637FA10017335B /* DataSet.swift in Sources */,
 				279072541F62D6560017335B /* ViewController.swift in Sources */,
 			);
