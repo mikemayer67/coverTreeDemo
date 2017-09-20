@@ -37,15 +37,6 @@ class Document: NSDocument
     self.coverTree = ct
   }
   
-//  override func encodeRestorableState(with coder: NSCoder)
-//  {
-//    if self.coverTree.generated
-//    {
-//      coder.encode(self.coverTree, forKey:"coverTree")
-//    }
-//    super.encodeRestorableState(with: coder)
-//  }
-  
   override func restoreWindow(withIdentifier identifier: String, state: NSCoder, completionHandler: @escaping (NSWindow?, Error?) -> Void)
   {
     if coverTree.generated

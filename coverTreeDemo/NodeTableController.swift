@@ -20,9 +20,7 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource
   {
     get { return visibleRows }
     set
-    {
-      print("Show \(newValue) rows (was \(visibleRows))")
-      
+    {      
       let newCount = max( 1, min( newValue, coverTree.count ) )
       
       if newCount > visibleRows

@@ -998,12 +998,12 @@
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="1" maxValue="20" doubleValue="20" tickMarkPosition="below" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="chE-tz-lVA"/>
                                 <connections>
                                     <action selector="handleAnimationSlider:" target="5gI-5U-AMq" id="baE-QN-3QN"/>
+                                    <binding destination="5gI-5U-AMq" name="value" keyPath="self.animationStep" id="Rtx-tZ-Ei2"/>
                                     <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.generated" id="a7K-bQ-Rmu">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="5gI-5U-AMq" name="value" keyPath="self.animationStep" id="Rtx-tZ-Ei2"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eu-CV-b8O" userLabel="AnimationCounter">
@@ -1250,9 +1250,46 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="743" height="280.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </customView>
-                                            <customView fixedFrame="YES" id="Tkx-9H-Xew">
+                                            <customView id="Tkx-9H-Xew">
                                                 <rect key="frame" x="0.0" y="281.5" width="743" height="293.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKc-zT-e0E">
+                                                        <rect key="frame" x="0.0" y="0.0" width="743" height="294"/>
+                                                        <clipView key="contentView" id="wId-Gj-MTz">
+                                                            <rect key="frame" x="1" y="1" width="726" height="292"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textView editable="NO" importsGraphics="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="mXY-z5-qfM" userLabel="Info Text View">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="726" height="292"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <size key="minSize" width="726" height="292"/>
+                                                                    <size key="maxSize" width="791" height="10000000"/>
+                                                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="FAr-kq-wfQ" id="4O6-vh-Q0f"/>
+                                                                    </connections>
+                                                                </textView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Upr-NM-HLE">
+                                                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="C7f-qj-pgM">
+                                                            <rect key="frame" x="727" y="1" width="15" height="292"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="hKc-zT-e0E" secondAttribute="bottom" id="2Rn-uH-K3L"/>
+                                                    <constraint firstItem="hKc-zT-e0E" firstAttribute="top" secondItem="Tkx-9H-Xew" secondAttribute="top" constant="-0.5" id="2a3-3g-mBD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hKc-zT-e0E" secondAttribute="trailing" id="BS7-RA-VqV"/>
+                                                    <constraint firstItem="hKc-zT-e0E" firstAttribute="leading" secondItem="Tkx-9H-Xew" secondAttribute="leading" id="XdM-aQ-wFq"/>
+                                                </constraints>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
@@ -1308,10 +1345,16 @@
                         <outlet property="dataDimensionText" destination="COz-6p-U8e" id="7Jd-Ma-SFw"/>
                         <outlet property="dataSourceFinal" destination="Vgb-Je-Pob" id="ajk-7b-gHG"/>
                         <outlet property="dataSourcePopup" destination="snx-cv-KEP" id="MqM-4W-hfp"/>
+                        <outlet property="infoTextController" destination="FAr-kq-wfQ" id="Xxx-ws-VGf"/>
                         <outlet property="nodeTableController" destination="kDi-iH-GLI" id="0N7-8M-Rcx"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="FAr-kq-wfQ" customClass="InfoTextController" customModule="coverTreeDemo" customModuleProvider="target">
+                    <connections>
+                        <outlet property="textView" destination="mXY-z5-qfM" id="ZwD-Eg-5WB"/>
+                    </connections>
+                </customObject>
                 <customObject id="kDi-iH-GLI" customClass="NodeTableController" customModule="coverTreeDemo" customModuleProvider="target">
                     <connections>
                         <outlet property="tableView" destination="m0i-Jb-BKG" id="1JG-W1-zI5"/>
@@ -1319,7 +1362,7 @@
                 </customObject>
                 <userDefaultsController representsSharedInstance="YES" id="jFI-sg-v52"/>
             </objects>
-            <point key="canvasLocation" x="-192" y="573"/>
+            <point key="canvasLocation" x="-192" y="572.5"/>
         </scene>
     </scenes>
 </document>

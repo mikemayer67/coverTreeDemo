@@ -37,6 +37,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
   @IBOutlet weak var animationSlider: NSSlider!
   
   @IBOutlet weak var nodeTableController : NodeTableController!
+  @IBOutlet weak var infoTextController  : InfoTextController!
   
   // MARK: - Input View Methods
   
@@ -48,9 +49,13 @@ class ViewController: NSViewController, NSTextFieldDelegate
   override func viewWillAppear()
   {
     super.viewWillAppear()
+    guard document == nil else { return }  // only do the rest of the setup if this is first pass
+    
     document = view.window?.windowController?.document as? Document!
     
     let ct = document.coverTree
+    
+    ct.logger = infoTextController
     
     generated = ct.generated
     if generated
@@ -66,7 +71,7 @@ class ViewController: NSViewController, NSTextFieldDelegate
       nodeTableController.coverTree = ct
       nodeTableController.rows      = dataCount
       
-      print("dataDimension:\(dataDimension) dataCount:\(dataCount)")
+      infoTextController.showing    = dataCount
     }
     else
     {
@@ -181,6 +186,8 @@ class ViewController: NSViewController, NSTextFieldDelegate
     nodeTableController.coverTree = document.coverTree
     nodeTableController.rows      = dataCount
     
+    infoTextController.showing    = dataCount
+    
     generated = true
   }
   
@@ -191,7 +198,8 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   @IBAction func handleAnimationSlider(_ sender: NSSlider)
   {
-    nodeTableController.rows = animationStep
+    nodeTableController.rows   = animationStep
+    infoTextController.showing = animationStep
   }
   
 }
