@@ -15,6 +15,7 @@
 		279072521F62D61F0017335B /* CoverTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072511F62D61F0017335B /* CoverTree.swift */; };
 		279072541F62D6560017335B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072531F62D6560017335B /* ViewController.swift */; };
 		2790725A1F637FA10017335B /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072591F637FA10017335B /* DataSet.swift */; };
+		27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33E421F734CC10078C010 /* InfoTextView.swift */; };
 		27C692F71F71AD650018EA6D /* InfoTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F61F71AD650018EA6D /* InfoTextController.swift */; };
 		27C692F91F71C2000018EA6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F81F71C2000018EA6D /* Extensions.swift */; };
 		27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */; };
@@ -31,6 +32,7 @@
 		279072531F62D6560017335B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		279072591F637FA10017335B /* DataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
 		27B830461F6F08DF007D4606 /* coverTreeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coverTreeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C33E421F734CC10078C010 /* InfoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextView.swift; sourceTree = "<group>"; };
 		27C692F61F71AD650018EA6D /* InfoTextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextController.swift; sourceTree = "<group>"; };
 		27C692F81F71C2000018EA6D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrapicTreeView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */,
 				274632B61F71507800EC51B4 /* NodeTableController.swift */,
 				27C692F61F71AD650018EA6D /* InfoTextController.swift */,
+				27C33E421F734CC10078C010 /* InfoTextView.swift */,
 			);
 			path = coverTreeDemo;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */,
 				274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */,
 				279072521F62D61F0017335B /* CoverTree.swift in Sources */,
+				27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */,
 				274E20741F5FAC600021A050 /* Document.swift in Sources */,
 				274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */,
 				2790725A1F637FA10017335B /* DataSet.swift in Sources */,

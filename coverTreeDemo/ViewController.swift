@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate
+class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
 {
   // MARK: - Shared Attributes
   
@@ -44,6 +44,8 @@ class ViewController: NSViewController, NSTextFieldDelegate
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    
+    view.window?.delegate = self
   }
   
   override func viewWillAppear()
@@ -198,8 +200,33 @@ class ViewController: NSViewController, NSTextFieldDelegate
   
   @IBAction func handleAnimationSlider(_ sender: NSSlider)
   {
+    set(animationStep:animationStep)
+  }
+  
+  func set(animationStep newValue:Int)
+  {
+    guard (newValue >= 1) && (newValue <= dataCount) else { return }
+    
+    if animationStep != newValue { animationStep = newValue }
+    
     nodeTableController.rows   = animationStep
     infoTextController.showing = animationStep
   }
   
+  override func keyDown(with event: NSEvent)
+  {
+    if event.modifierFlags.contains(NSNumericPadKeyMask)
+    {
+      if let key = event.charactersIgnoringModifiers?.utf16.first
+      {
+        switch Int(key)
+        {
+        case NSRightArrowFunctionKey: set(animationStep: animationStep + 1); return
+        case NSLeftArrowFunctionKey:  set(animationStep: animationStep - 1); return
+        default: break;
+        }
+      }
+    }
+    super.keyDown(with:event)
+  }
 }
