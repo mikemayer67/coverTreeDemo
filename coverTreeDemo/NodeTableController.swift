@@ -60,7 +60,7 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource
       case "LevelColumn":
         cell.textField?.stringValue = "\(10*row+2)"
 
-      case "TupleColumn":
+      case "DataPointColumn":
       cell.textField?.stringValue = "[\(0.1 * Double(row)), \(0.0 * Double(row)), \(10.01 * Double(row))])"
     default:
       cell.textField?.stringValue = "? \(column)"

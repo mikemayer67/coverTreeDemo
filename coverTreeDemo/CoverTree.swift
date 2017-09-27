@@ -8,6 +8,8 @@
 
 import Cocoa
 
+typealias History = [[String]]
+
 protocol CoverTreeGenerationLogger
 {
   func add(_ string:String, to level:Int) -> Void
@@ -16,16 +18,15 @@ protocol CoverTreeGenerationLogger
 
 class CoverTree: NSObject, NSCoding
 {
-  
-  private(set) var dataSet    : DataSet!
   private(set) var dataSource : String!
   
-  var dim   : Int  { return dataSet?.dim   ?? 0 }
-  var count : Int  { return dataSet?.count ?? 0 }
+  private(set) var root  : CoverTreeNode!
+  private(set) var dim   = 0
+  private(set) var count = 0
   
-  var generated   : Bool { return dataSet != nil }
+  var generated   : Bool { return root != nil }
   
-  private var history = [[String]]()
+  private var history = History()
   var logger : CoverTreeGenerationLogger?
   {
     didSet { logger?.set(self.history) }
@@ -38,17 +39,18 @@ class CoverTree: NSObject, NSCoding
   
   required init?(coder decoder:NSCoder)
   {
-    if let data = decoder.decodeObject(forKey: "data"  ) as? DataSet,
-      let  src  = decoder.decodeObject(forKey: "source") as? String
-    {
-      self.dataSet    = data
-      self.dataSource = src
-    }
-    else
+    guard let root    = decoder.decodeObject( forKey: "tree"  ) as? CoverTreeNode,
+      let  dataSource = decoder.decodeObject( forKey: "source") as? String
+      else
     {
       NSLog("Failed to decode CoverTree:: invalid format")
       return nil
     }
+    
+    self.dataSource = dataSource
+    self.root       = root
+    self.dim        = decoder.decodeInteger(forKey: "dim")
+    self.count      = decoder.decodeInteger(forKey: "count")
     
     if let hist = decoder.decodeObject(forKey:"history") as? [[String]]
     {
@@ -56,7 +58,7 @@ class CoverTree: NSObject, NSCoding
     }
     else
     {
-      for i in 1...dataSet.count
+      for i in 1...count
       {
         history.append(["Missing info for <<\(i)>>"])
       }
@@ -65,24 +67,59 @@ class CoverTree: NSObject, NSCoding
   
   func encode(with coder: NSCoder)
   {
-    coder.encode(self.dataSet,    forKey:"data"  )
+    coder.encode(self.root,       forKey:"root"  )
     coder.encode(self.dataSource, forKey:"source")
+    coder.encode(self.dim,        forKey:"dim")
+    coder.encode(self.count,      forKey:"count")
     coder.encode(self.history,    forKey:"history")
   }
   
-  func generate( dataSet : DataSet, source : String? = nil) -> Void
+  func generate( dataSet : DataSet, source : String) -> Void
   {
-    self.dataSet    = dataSet
-    self.dataSource = source ?? "unknown"
+    guard dataSet.count>1 else { return }
     
-    for i in 1...count
+    self.dataSource = source
+    
+    for p in dataSet.points
     {
-      let steps = [ "Construction of <<\(i)>>", "Parent is <<\(i-1)>>", "Children are <<\(i+1)>>, <<\(i+3)>>, and <<\(2*i+5)>>" ]
-      for step in steps
+      // Case 1: Empty Tree
+      if root == nil
       {
-        logger?.add(step, to: i)
+        history.append(["Constructing root node"])
+        root = CoverTreeNode(p)
+        
+        continue // to next p
       }
-      history.append(steps)
+      
+      let rootDist = p.distance(from:root.point)
+      
+      // Case 2: p is redundant with root node
+      if rootDist == 0.0
+      {
+        history.append(["Point is redundant with root node"])
+        root.incrementCount()
+        continue // to next p
+      }
+        
+      // Case 3: Tree only contains the root node
+      if root.children.isEmpty
+      {
+        root.addChild(p, atDistance:rootDist)
+        continue // to next p
+      }
+        
+      // Case 4: Root node is not at high enough level to cover new point
+      if try! root.increaseLevel(toCover: rootDist)
+      {
+        root.addChild(p, atDistance:rootDist)
+        continue // to next p
+      }
+
+      
+       // tree contains at least two nodes
+      {
+        root!.insert(p,history:history)
+      }
     }
   }
 }

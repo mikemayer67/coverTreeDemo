@@ -20,8 +20,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   dynamic              var animationStep = 20
   
   let demos = [
-    "Demo Set 1" : DataSet(Tuple(50), Tuple(25), Tuple(97), Tuple(32), Tuple(95), Tuple(8), Tuple(4), Tuple(12), Tuple(42), Tuple(60)),
-    "Demo Set 2" : DataSet(Tuple(0,0), Tuple(1,0), Tuple(1,1), Tuple(2,3), Tuple(0.5,4.5), Tuple(-1.25, 3.0))
+    "Demo Set 1" : DataSet(DataPoint(50), DataPoint(25), DataPoint(97), DataPoint(32), DataPoint(95), DataPoint(8), DataPoint(4), DataPoint(12), DataPoint(42), DataPoint(60)),
+    "Demo Set 2" : DataSet(DataPoint(0,0), DataPoint(1,0), DataPoint(1,1), DataPoint(2,3), DataPoint(0.5,4.5), DataPoint(-1.25, 3.0))
   ]
   
   // MARK: - Bindings/Outlets
@@ -145,7 +145,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     {
     case 0:
       
-      var tuples = [Tuple]()
+      var points = [DataPoint]()
       
       for _ in 1...dataCount
       {
@@ -155,16 +155,16 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
           let x = 0.1 * Double( arc4random_uniform(2000) ) - 100.0
           coord.append(x)
         }
-        let tuple = Tuple(coordinates:coord)
-        tuples.append(tuple)
+        let point = DataPoint(coordinates:coord)
+        points.append(point)
       }
       
-      data = DataSet(tuples:tuples)
+      data = DataSet(points:points)
       
     default:
       
       data = demos[ dataSource ]!
-      dataCount     = data.tuples.count
+      dataCount     = data.points.count
       dataDimension = data.dim
       
       if randomizeDemoData

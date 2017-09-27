@@ -8,77 +8,35 @@
 
 import Foundation
 
-class Tuple : NSObject, NSCoding
-{
-  let coord : [Double]
-  
-  var dim : Int { return coord.count }
-  
-  init( _ x:Double... )
-  {
-    self.coord = x
-  }
-  
-  init( coordinates : [Double])
-  {
-    self.coord = coordinates
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    guard aDecoder.containsValue(forKey: "coord") else { return nil }
-    
-    if let t1 = aDecoder.decodeObject(forKey: "coord") as? NSArray,
-      let t2 = t1 as? Array<Double>
-    {
-      coord = t2
-    }
-    else
-    {
-      return nil
-    }
-  }
-  
-  func encode(with aCoder: NSCoder)
-  {
-    aCoder.encode(coord as NSArray, forKey: "coord")
-  }
-  
-  
-  func dist( x : Tuple ) -> Double
-  {
-    var rval = 0.0
-    for (a,b) in zip(self.coord, x.coord)
-    {
-      let d = a - b
-      rval += d * d
-    }
-    return rval
-  }
-}
 
 class DataSet : NSObject, NSCoding
 {
-  private(set) var tuples : [Tuple]
+  private(set) var points : [DataPoint]
   let dim : Int
   
-  var count : Int { return tuples.count }
+  var count : Int { return points.count }
   
-  convenience init?(_ tuples:Tuple... )
+  subscript(_ i:Int) -> DataPoint?
   {
-    self.init(tuples:tuples)
+    guard i>=0, i<count else { return nil }
+    return points[i]
   }
   
-  init?( tuples : [Tuple])
+  convenience init?(_ points:DataPoint... )
   {
-    if tuples.count == 0 { return nil }
+    self.init(points:points)
+  }
+  
+  init?( points : [DataPoint])
+  {
+    if points.count == 0 { return nil }
     
-    self.tuples = tuples
+    self.points = points
     
-    let t1 = tuples[0]
+    let t1 = points[0]
     self.dim = t1.dim
     
-    for t in tuples
+    for t in points
     {
       if t.dim != self.dim { return nil }
     }
@@ -92,9 +50,9 @@ class DataSet : NSObject, NSCoding
     dim = aDecoder.decodeInteger(forKey: "dim")
     
     if let t1 = aDecoder.decodeObject(forKey: "data") as? NSArray,
-      let t2 = t1 as? Array<Tuple>
+      let t2 = t1 as? Array<DataPoint>
     {
-      self.tuples = t2
+      self.points = t2
     }
     else
     {
@@ -105,18 +63,18 @@ class DataSet : NSObject, NSCoding
   func encode(with aCoder: NSCoder)
   {
     aCoder.encode(dim, forKey: "dim")
-    aCoder.encode(tuples as NSArray, forKey: "data")
+    aCoder.encode(points as NSArray, forKey: "data")
   }
   
   func randomize() -> Void
   {
-    let n = tuples.count
+    let n = points.count
     if n > 1
     {
       for i in 0...n-2
       {
         let j : Int = Int(arc4random_uniform(UInt32(n-i)))
-        if i != j { swap( &(tuples[i]), &(tuples[j]) ) }
+        if i != j { swap( &(points[i]), &(points[j]) ) }
       }
     }
   }
