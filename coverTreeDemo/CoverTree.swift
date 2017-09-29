@@ -18,6 +18,9 @@ protocol CoverTreeGenerationLogger
 
 class CoverTree: NSObject, NSCoding
 {
+  static let BASE = 2.0
+  static let logBase = log(BASE)
+
   private(set) var dataSource : String!
   
   private(set) var root  : CoverTreeNode!
@@ -67,11 +70,14 @@ class CoverTree: NSObject, NSCoding
   
   func encode(with coder: NSCoder)
   {
-    coder.encode(self.root,       forKey:"root"  )
-    coder.encode(self.dataSource, forKey:"source")
-    coder.encode(self.dim,        forKey:"dim")
-    coder.encode(self.count,      forKey:"count")
-    coder.encode(self.history,    forKey:"history")
+    if root != nil
+    {
+      coder.encode(self.root,       forKey:"root"  )
+      coder.encode(self.dataSource, forKey:"source")
+      coder.encode(self.dim,        forKey:"dim")
+      coder.encode(self.count,      forKey:"count")
+      coder.encode(self.history,    forKey:"history")
+    }
   }
   
   func generate( dataSet : DataSet, source : String) -> Void
@@ -98,28 +104,60 @@ class CoverTree: NSObject, NSCoding
       {
         history.append(["Point is redundant with root node"])
         root.incrementCount()
-        continue // to next p
       }
         
-      // Case 3: Tree only contains the root node
-      if root.children.isEmpty
+        // Case 3: Tree only contains the root node
+      else if root.children.isEmpty
       {
         root.addChild(p, atDistance:rootDist)
-        continue // to next p
       }
         
-      // Case 4: Root node is not at high enough level to cover new point
-      if try! root.increaseLevel(toCover: rootDist)
+        // Case 4: Tree contains at least two nodes
+      else
       {
-        root.addChild(p, atDistance:rootDist)
-        continue // to next p
-      }
-
-      
-       // tree contains at least two nodes
-      {
-        root!.insert(p,history:history)
+        let Q = [(node:root!,dist:rootDist)]
+        if insert(point:p, into:Q, at:root.level) == false
+        {
+          // Case 4b: root nodes must be raised to a higher level
+          root.addChild(p,atDistance: rootDist)
+        }
       }
     }
   }
+
+  @discardableResult func insert(point p:DataPoint, into Qi:NodesAndDists, at level:Int) -> Bool
+  {
+    let sep = exp( Double(level) * CoverTree.logBase )
+    
+    var candQi : NodeAndDist?
+    
+    var Qj = NodesAndDists()
+    for qi in Qi
+    {
+      if qi.dist <= sep
+      {
+        if ( candQi == nil ) || (qi.dist < candQi!.dist) { candQi = qi }
+        Qj.append(qi)
+      }
+      
+      if let children = qi.node.children[level - 1]
+      {
+        for q in children
+        {
+          let d = q.point.distance(from: p)
+          if d <= sep { Qj.append( (node:q, dist:d) ) }
+        }
+      }
+    }
+    
+    if Qj.isEmpty { return false }
+    
+    if insert(point: p, into: Qj, at: level - 1) == true { return true }
+    if candQi == nil { return false }
+    
+    candQi!.node.addChild(p, atDistance: candQi!.dist)
+    
+    return true
+  }
 }
+
