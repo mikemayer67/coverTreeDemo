@@ -8,7 +8,8 @@
 
 import Cocoa
 
-typealias History = [[String]]
+typealias PointHistory = [String]
+typealias TreeHistory  = [PointHistory]
 
 protocol CoverTreeGenerationLogger
 {
@@ -20,7 +21,7 @@ class CoverTree: NSObject, NSCoding
 {
   static let BASE = 2.0
   static let logBase = log(BASE)
-
+  
   private(set) var dataSource : String!
   
   private(set) var root  : CoverTreeNode!
@@ -29,10 +30,12 @@ class CoverTree: NSObject, NSCoding
   
   var generated   : Bool { return root != nil }
   
-  private var history = History()
+  private var treeHistory  = TreeHistory()
+  private var pointHistory = PointHistory()
+  
   var logger : CoverTreeGenerationLogger?
   {
-    didSet { logger?.set(self.history) }
+    didSet { logger?.set(self.treeHistory) }
   }
   
   override init()
@@ -57,13 +60,13 @@ class CoverTree: NSObject, NSCoding
     
     if let hist = decoder.decodeObject(forKey:"history") as? [[String]]
     {
-      history = hist
+      treeHistory = hist
     }
     else
     {
       for i in 1...count
       {
-        history.append(["Missing info for <<\(i)>>"])
+        treeHistory.append(["Missing info for <<\(i)>>"])
       }
     }
   }
@@ -76,7 +79,7 @@ class CoverTree: NSObject, NSCoding
       coder.encode(self.dataSource, forKey:"source")
       coder.encode(self.dim,        forKey:"dim")
       coder.encode(self.count,      forKey:"count")
-      coder.encode(self.history,    forKey:"history")
+      coder.encode(self.treeHistory,    forKey:"history")
     }
   }
   
@@ -88,11 +91,12 @@ class CoverTree: NSObject, NSCoding
     
     for p in dataSet.points
     {
+      let pointInfo = "\(p.coord)"
       // Case 1: Empty Tree
       if root == nil
       {
-        history.append(["Constructing root node"])
         root = CoverTreeNode(p)
+        treeHistory.append([pointInfo,"Adding <\(root.ID)> as root node"])
         
         continue // to next p
       }
@@ -102,29 +106,36 @@ class CoverTree: NSObject, NSCoding
       // Case 2: p is redundant with root node
       if rootDist == 0.0
       {
-        history.append(["Point is redundant with root node"])
+        treeHistory.append([pointInfo,"Point is redundant with root node \(root.ID)"])
         root.incrementCount()
       }
         
         // Case 3: Tree only contains the root node
       else if root.children.isEmpty
       {
-        root.addChild(p, atDistance:rootDist)
+        let q = root.addChild(p, atDistance:rootDist)
+        treeHistory.append([pointInfo,
+          "Adding <\(q.ID)> as second node in tree  (root level = \(root.level),   node level = \(q.level),   distance = \(rootDist))" ] )
       }
         
         // Case 4: Tree contains at least two nodes
       else
       {
+        pointHistory = [pointInfo,"Looking at root node (level \(root.level)) as parent node"]
         let Q = [(node:root!,dist:rootDist)]
         if insert(point:p, into:Q, at:root.level) == false
         {
           // Case 4b: root nodes must be raised to a higher level
-          root.addChild(p,atDistance: rootDist)
+          let q = root.addChild(p,atDistance: rootDist)
+          pointHistory.append("Root level must be increased to \(root.level)")
+          pointHistory.append("Adding <\(q.ID)> to root node at level \(q.level) based on distance of \(rootDist)")
         }
+        treeHistory.append(pointHistory)
       }
     }
+    logger?.set(self.treeHistory)
   }
-
+  
   @discardableResult func insert(point p:DataPoint, into Qi:NodesAndDists, at level:Int) -> Bool
   {
     let sep = exp( Double(level) * CoverTree.logBase )
@@ -145,17 +156,30 @@ class CoverTree: NSObject, NSCoding
         for q in children
         {
           let d = q.point.distance(from: p)
+          
+          if d == 0.0
+          {
+            q.incrementCount()
+          }
+          
           if d <= sep { Qj.append( (node:q, dist:d) ) }
         }
       }
     }
+    pointHistory.append("Looking for parent node at level \(level-1)  (\(Qj.count) candidates found)")
     
     if Qj.isEmpty { return false }
+    
+    for qj in Qj
+    {
+      pointHistory.append("    <\(qj.node.ID)> at distance \(qj.dist)")
+    }
     
     if insert(point: p, into: Qj, at: level - 1) == true { return true }
     if candQi == nil { return false }
     
-    candQi!.node.addChild(p, atDistance: candQi!.dist)
+    let q = candQi!.node.addChild(p, atDistance: candQi!.dist)
+    pointHistory.append("Adding <\(q.ID)> as level \(q.level) child of <\(candQi!.node.ID)> based on distance of \(candQi!.dist)")
     
     return true
   }

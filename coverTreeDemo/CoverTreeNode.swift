@@ -88,7 +88,7 @@ class CoverTreeNode : NSObject, NSCoding
     point.incrementCount()
   }
   
-  func addChild(_ p:DataPoint, atDistance dist:Double)
+  func addChild(_ p:DataPoint, atDistance dist:Double) -> CoverTreeNode
   {
     let newNode = CoverTreeNode(p, asChildOf:self, atDistance:dist)
     
@@ -110,5 +110,7 @@ class CoverTreeNode : NSObject, NSCoding
     {
       self.children[newNode.level] = [ newNode ]
     }
+    
+    return newNode
   }
 }
