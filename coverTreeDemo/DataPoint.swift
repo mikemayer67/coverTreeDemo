@@ -16,7 +16,22 @@ class DataPoint : NSObject, NSCoding
   
   private(set) var count = 1
   
-  init( _ x:Double... )
+  private var _string : String!  
+  var string : String
+  {
+    if _string == nil
+    {
+      for x in self.coord
+      {
+        if _string == nil { _string = "( " }
+        else              { _string.append(", ") }
+        _string.append( x.to_string(maxDecimals: 2))
+      }
+      _string.append(" )")
+    }
+    return _string
+  }
+    init( _ x:Double... )
   {
     self.coord = x
   }

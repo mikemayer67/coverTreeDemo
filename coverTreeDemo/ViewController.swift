@@ -135,7 +135,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     // compute/lookup data sample
     
-    let dataSource      = dataSourcePopup.titleOfSelectedItem!
+    let dataSource = dataSourcePopup.titleOfSelectedItem!
     
     dataSourceFinal.stringValue = dataSource
     
@@ -176,7 +176,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     // do the work
     
-    document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue)
+    guard document.coverTree.generate(dataSet:data, source:dataSourceFinal.stringValue) else { return }
+    
     document.updateChangeCount(.changeDone)
     
     // update views

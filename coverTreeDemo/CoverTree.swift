@@ -26,12 +26,17 @@ class CoverTree: NSObject, NSCoding
   
   private(set) var root  : CoverTreeNode!
   private(set) var dim   = 0
-  private(set) var count = 0
+  private(set) var nodes = CoverTreeNodes()
   
-  var generated   : Bool { return root != nil }
+  var count : Int { return nodes.count }
+  
+  var generated  : Bool { return root != nil }
   
   private var treeHistory  = TreeHistory()
   private var pointHistory = PointHistory()
+  
+  private var _nextID = 1
+  private var nextID : Int { let rval = _nextID; _nextID += 1; return rval }
   
   var logger : CoverTreeGenerationLogger?
   {
@@ -45,6 +50,8 @@ class CoverTree: NSObject, NSCoding
   
   required init?(coder decoder:NSCoder)
   {
+    super.init()
+    
     guard let root    = decoder.decodeObject( forKey: "tree"  ) as? CoverTreeNode,
       let  dataSource = decoder.decodeObject( forKey: "source") as? String
       else
@@ -56,7 +63,6 @@ class CoverTree: NSObject, NSCoding
     self.dataSource = dataSource
     self.root       = root
     self.dim        = decoder.decodeInteger(forKey: "dim")
-    self.count      = decoder.decodeInteger(forKey: "count")
     
     if let hist = decoder.decodeObject(forKey:"history") as? [[String]]
     {
@@ -66,8 +72,14 @@ class CoverTree: NSObject, NSCoding
     {
       for i in 1...count
       {
-        treeHistory.append(["Missing info for <<\(i)>>"])
+        treeHistory.append(["No history info for <<\(i)>>"])
       }
+    }
+    
+    if indexNodes() == false
+    {
+      self.root = nil
+      return nil
     }
   }
   
@@ -75,19 +87,57 @@ class CoverTree: NSObject, NSCoding
   {
     if root != nil
     {
-      coder.encode(self.root,       forKey:"root"  )
-      coder.encode(self.dataSource, forKey:"source")
-      coder.encode(self.dim,        forKey:"dim")
-      coder.encode(self.count,      forKey:"count")
-      coder.encode(self.treeHistory,    forKey:"history")
+      coder.encode(self.root,        forKey:"root"  )
+      coder.encode(self.dataSource,  forKey:"source")
+      coder.encode(self.dim,         forKey:"dim")
+      coder.encode(self.treeHistory, forKey:"history")
     }
   }
   
-  func generate( dataSet : DataSet, source : String) -> Void
+  func indexNodes() -> Bool
   {
-    guard dataSet.count>1 else { return }
+    do
+    {
+      var nodeMap = CoverTreeNodeMap()
+      try root.insert(into: &nodeMap)
+      
+      let n = nodeMap.count
+      for i in 1...n
+      {
+        if let node = nodeMap[i]
+        {
+          nodes.append(node)
+        }
+        else
+        {
+          throw CoverTreeError.fileContentError("Missing node <<\(i)>>")
+        }
+      }
+    }
+    catch CoverTreeError.fileContentError(let reason)
+    {
+      NSLog("Invalid file content encountered: \(reason)")
+      return false
+    }
+    catch CoverTreeError.codingError(let reason)
+    {
+      NSLog("Coding error: \(reason)")
+      return false
+    }
+    catch
+    {
+      NSLog("Unknown error while attempting to decode file content")
+      return false
+    }
+    return true
+  }
+  
+  func generate( dataSet : DataSet, source : String) -> Bool
+  {
+    guard dataSet.count>1 else { return false }
     
     self.dataSource = source
+    self.dim = dataSet.dim
     
     for p in dataSet.points
     {
@@ -95,8 +145,8 @@ class CoverTree: NSObject, NSCoding
       // Case 1: Empty Tree
       if root == nil
       {
-        root = CoverTreeNode(p)
-        treeHistory.append([pointInfo,"Adding <\(root.ID)> as root node"])
+        root = CoverTreeNode(p, id:self.nextID)
+        treeHistory.append([pointInfo,"Adding <<\(root.ID)>> as root node"])
         
         continue // to next p
       }
@@ -113,9 +163,9 @@ class CoverTree: NSObject, NSCoding
         // Case 3: Tree only contains the root node
       else if root.children.isEmpty
       {
-        let q = root.addChild(p, atDistance:rootDist)
+        let q = root.addChild(p, id:self.nextID, atDistance:rootDist)
         treeHistory.append([pointInfo,
-          "Adding <\(q.ID)> as second node in tree  (root level = \(root.level),   node level = \(q.level),   distance = \(rootDist))" ] )
+          "Adding <<\(q.ID)>> as second node in tree  (root level = \(root.level),   node level = \(q.level),   distance = \(rootDist))" ] )
       }
         
         // Case 4: Tree contains at least two nodes
@@ -126,14 +176,23 @@ class CoverTree: NSObject, NSCoding
         if insert(point:p, into:Q, at:root.level) == false
         {
           // Case 4b: root nodes must be raised to a higher level
-          let q = root.addChild(p,atDistance: rootDist)
+          let q = root.addChild(p, id:self.nextID, atDistance:rootDist)
           pointHistory.append("Root level must be increased to \(root.level)")
-          pointHistory.append("Adding <\(q.ID)> to root node at level \(q.level) based on distance of \(rootDist)")
+          pointHistory.append("Adding <<\(q.ID)>> to root node at level \(q.level) based on distance of \(rootDist)")
         }
         treeHistory.append(pointHistory)
       }
     }
+    
+    if indexNodes() == false
+    {
+      root = nil
+      return false
+    }
+    
     logger?.set(self.treeHistory)
+    
+    return true
   }
   
   @discardableResult func insert(point p:DataPoint, into Qi:NodesAndDists, at level:Int) -> Bool
@@ -172,13 +231,13 @@ class CoverTree: NSObject, NSCoding
     
     for qj in Qj
     {
-      pointHistory.append("    <\(qj.node.ID)> at distance \(qj.dist)")
+      pointHistory.append("    <<\(qj.node.ID)>> at distance \(qj.dist)")
     }
     
     if insert(point: p, into: Qj, at: level - 1) == true { return true }
     if candQi == nil { return false }
     
-    let q = candQi!.node.addChild(p, atDistance: candQi!.dist)
+    let q = candQi!.node.addChild(p, id:self.nextID, atDistance: candQi!.dist)
     pointHistory.append("Adding <\(q.ID)> as level \(q.level) child of <\(candQi!.node.ID)> based on distance of \(candQi!.dist)")
     
     return true

@@ -65,3 +65,22 @@ extension NSMutableAttributedString
   }
 }
 
+extension Double
+{
+  func to_string(maxDecimals n:Int) -> String
+  {
+    guard n>0 else { return "\(self)" }
+    let fmt = "%.\(n)f"
+    var rval = String(format:fmt, self)
+    while rval.characters.last == "0"
+    {
+      rval.characters.removeLast()
+    }
+    if rval.characters.last == "."
+    {
+      rval.characters.removeLast()
+    }
+    return rval
+  }
+}
+

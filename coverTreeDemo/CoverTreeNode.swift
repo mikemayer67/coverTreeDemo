@@ -8,15 +8,14 @@
 
 import Cocoa
 
-typealias NodeAndDist    = (node:CoverTreeNode, dist:Double)
-typealias NodesAndDists  = [NodeAndDist]
-typealias CoverTreeNodes = [CoverTreeNode]
-typealias CoverageMap    = [Int:CoverTreeNodes]
+typealias NodeAndDist      = (node:CoverTreeNode, dist:Double)
+typealias NodesAndDists    = [NodeAndDist]
+typealias CoverTreeNodes   = [CoverTreeNode]
+typealias CoverTreeNodeMap = [Int:CoverTreeNode]
+typealias CoverageMap      = [Int:CoverTreeNodes]
 
 class CoverTreeNode : NSObject, NSCoding
 {
-  private(set) static var nextID = 1
-  
   private(set) var ID       : Int
   private(set) var level    : Int
   private(set) var point    : DataPoint
@@ -25,18 +24,16 @@ class CoverTreeNode : NSObject, NSCoding
   
   var isRoot : Bool { return parent == nil }
   
-  init(_ data:DataPoint)
+  init(_ data:DataPoint, id:Int)
   {
-    self.ID    = CoverTreeNode.nextID
+    self.ID    = id
     self.point = data
     self.level = Int.min
-    
-    CoverTreeNode.nextID += 1
   }
   
-  convenience init(_ point:DataPoint, asChildOf parent:CoverTreeNode, atDistance distance:Double)
+  convenience init(_ point:DataPoint, id:Int, asChildOf parent:CoverTreeNode, atDistance distance:Double)
   {
-    self.init(point)
+    self.init(point, id:id)
     
     let level = Int( ceil(log(distance)/CoverTree.logBase) ) // parent level
     
@@ -44,11 +41,11 @@ class CoverTreeNode : NSObject, NSCoding
     self.level  = level - 1
   }
   
-  convenience init(_ point:DataPoint, parent:CoverTreeNode)
+  convenience init(_ point:DataPoint, id:Int, parent:CoverTreeNode)
   {
     let dist = point.distance(from: parent.point)
     
-    self.init(point, asChildOf: parent, atDistance: dist )
+    self.init(point, id:id, asChildOf: parent, atDistance: dist )
   }
   
   required init?(coder aDecoder: NSCoder)
@@ -88,9 +85,9 @@ class CoverTreeNode : NSObject, NSCoding
     point.incrementCount()
   }
   
-  func addChild(_ p:DataPoint, atDistance dist:Double) -> CoverTreeNode
+  func addChild(_ p:DataPoint, id:Int, atDistance dist:Double) -> CoverTreeNode
   {
-    let newNode = CoverTreeNode(p, asChildOf:self, atDistance:dist)
+    let newNode = CoverTreeNode(p, id:id, asChildOf:self, atDistance:dist)
     
     guard ( (newNode.level < self.level) || self.isRoot ) else {
       NSLog("Attemped to add child node on level \(newNode.level) at a distance of \(dist) from the parent node")
@@ -102,15 +99,30 @@ class CoverTreeNode : NSObject, NSCoding
       self.level = newNode.level + 1
     }
     
-    if var children = self.children[newNode.level]
-    {
-      children.append( newNode )
-    }
-    else
+    if self.children[newNode.level] == nil
     {
       self.children[newNode.level] = [ newNode ]
     }
+    else
+    {
+      self.children[newNode.level]!.append(newNode)
+    }
     
     return newNode
+  }
+  
+  func insert(into map:inout CoverTreeNodeMap) throws -> Void
+  {
+    guard map[self.ID] == nil else { throw CoverTreeError.fileContentError("Node <<\(self.ID)>> multiply defined") }
+    
+    map[self.ID] = self
+    
+    for (_,level_children) in self.children
+    {
+      for node in level_children
+      {
+        try node.insert(into:&map)
+      }
+    }
   }
 }
