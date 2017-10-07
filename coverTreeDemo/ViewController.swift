@@ -72,6 +72,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
       
       nodeTableController.coverTree = ct
       nodeTableController.rows      = dataCount
+      nodeTableController.tableView.reloadData()
       
       infoTextController.showing    = dataCount
     }

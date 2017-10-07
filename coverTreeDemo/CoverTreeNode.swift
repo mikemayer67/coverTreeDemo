@@ -50,14 +50,15 @@ class CoverTreeNode : NSObject, NSCoding
   
   required init?(coder aDecoder: NSCoder)
   {
-    guard let point = aDecoder.decodeObject(forKey:"point")     as? DataPoint,
-      let  children = aDecoder.decodeObject(forKey:"childrent") as? CoverageMap
-      else { return nil }
+    let point  = aDecoder.decodeObject(forKey:"point")    as? DataPoint
+    let cnodes = aDecoder.decodeObject(forKey:"children") as? CoverageMap
+    self.ID    = aDecoder.decodeInteger(forKey: "id")
+    self.level = aDecoder.decodeInteger(forKey: "level")
     
-    self.ID       = aDecoder.decodeInteger(forKey: "id")
-    self.level    = aDecoder.decodeInteger(forKey: "level")
-    self.point    = point
-    self.children = children
+    guard point != nil, cnodes != nil else { return nil }
+    
+    self.point    = point!
+    self.children = cnodes!
     
     super.init()
     
@@ -65,7 +66,7 @@ class CoverTreeNode : NSObject, NSCoding
     {
       for q in nodes
       {
-        let dist = point.distance(from: q.point)
+        let dist = point!.distance(from: q.point)
         q.parent = (self,dist)
       }
     }

@@ -25,17 +25,20 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
     {      
       let newCount = max( 1, min( newValue, coverTree.count ) )
       
-      if newCount > visibleRows
+      if visibleRows > 0
       {
-        tableView.beginUpdates()
-        tableView.insertRows(at: IndexSet(visibleRows ... newCount-1), withAnimation: [])
-        tableView.endUpdates()
-      }
-      else if newCount < visibleRows
-      {
-        tableView.beginUpdates()
-        tableView.removeRows(at: IndexSet(newCount ... visibleRows-1), withAnimation: [])
-        tableView.endUpdates()
+        if newCount > visibleRows
+        {
+          tableView.beginUpdates()
+          tableView.insertRows(at: IndexSet(visibleRows ... newCount-1), withAnimation: [])
+          tableView.endUpdates()
+        }
+        else if newCount < visibleRows
+        {
+          tableView.beginUpdates()
+          tableView.removeRows(at: IndexSet(newCount ... visibleRows-1), withAnimation: [])
+          tableView.endUpdates()
+        }
       }
       visibleRows = newCount
     }

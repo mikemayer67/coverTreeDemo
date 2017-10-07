@@ -52,21 +52,23 @@ class CoverTree: NSObject, NSCoding
   {
     super.init()
     
-    guard let root    = decoder.decodeObject( forKey: "tree"  ) as? CoverTreeNode,
-      let  dataSource = decoder.decodeObject( forKey: "source") as? String
-      else
-    {
+    let root       = decoder.decodeObject( forKey: "root"  ) as? CoverTreeNode
+    let dataSource = decoder.decodeObject( forKey: "source") as? String
+    let hist       = decoder.decodeObject(forKey:"history") as? [[String]]
+    self.dim        = decoder.decodeInteger(forKey: "dim")
+    
+    guard root != nil, dataSource != nil else {
       NSLog("Failed to decode CoverTree:: invalid format")
       return nil
     }
     
     self.dataSource = dataSource
     self.root       = root
-    self.dim        = decoder.decodeInteger(forKey: "dim")
     
-    if let hist = decoder.decodeObject(forKey:"history") as? [[String]]
+    
+    if hist != nil
     {
-      treeHistory = hist
+      treeHistory = hist!
     }
     else
     {
