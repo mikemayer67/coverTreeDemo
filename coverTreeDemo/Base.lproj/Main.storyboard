@@ -686,7 +686,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1231" height="661"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="T5n-s8-As3">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="T5n-s8-As3" userLabel="Top Bar">
                                 <rect key="frame" x="0.0" y="605" width="1231" height="60"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aR7-GN-Aib">
@@ -954,19 +954,56 @@
                                             </binding>
                                         </connections>
                                     </textField>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lU2-Zq-05B">
+                                        <rect key="frame" x="1045" y="18" width="168" height="24"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="igo-pU-gVq">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="Tree" selected="YES"/>
+                                                <segment label="Polar" tag="1"/>
+                                                <segment label="Spatial"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="handleViewTypeControl:" target="5gI-5U-AMq" id="8sF-Tn-sTN"/>
+                                            <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.generated" id="8SW-Bs-MVZ">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </segmentedControl>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFm-49-XRq">
+                                        <rect key="frame" x="1004" y="23" width="37" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="View:" id="Ap2-eQ-tHH">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.generated" id="Fyl-lP-UsX">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ola-Zm-BfY" firstAttribute="leading" secondItem="COz-6p-U8e" secondAttribute="trailing" constant="11" id="1PA-GQ-ryL"/>
                                     <constraint firstItem="COz-6p-U8e" firstAttribute="baseline" secondItem="aR7-GN-Aib" secondAttribute="baseline" id="6wN-Xd-x3c"/>
                                     <constraint firstItem="gox-Xr-iR9" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="7bb-We-4vZ"/>
                                     <constraint firstItem="COz-6p-U8e" firstAttribute="leading" secondItem="hTF-hm-ZVi" secondAttribute="trailing" constant="8" id="7e6-va-7ft"/>
+                                    <constraint firstItem="AFm-49-XRq" firstAttribute="baseline" secondItem="lU2-Zq-05B" secondAttribute="baseline" id="8eo-sA-UY9"/>
                                     <constraint firstItem="hTF-hm-ZVi" firstAttribute="leading" secondItem="snx-cv-KEP" secondAttribute="trailing" constant="46" id="Ct6-1O-HSr"/>
                                     <constraint firstItem="Vgb-Je-Pob" firstAttribute="baseline" secondItem="aR7-GN-Aib" secondAttribute="baseline" id="F9U-P8-0lu"/>
                                     <constraint firstItem="CBO-sM-ROo" firstAttribute="leading" secondItem="snx-cv-KEP" secondAttribute="trailing" constant="8" id="JX0-M8-lZF"/>
                                     <constraint firstItem="Vgb-Je-Pob" firstAttribute="baseline" secondItem="snx-cv-KEP" secondAttribute="baseline" id="Jrc-so-94L"/>
                                     <constraint firstItem="ola-Zm-BfY" firstAttribute="baseline" secondItem="aR7-GN-Aib" secondAttribute="baseline" id="Lfv-X2-329"/>
+                                    <constraint firstItem="lU2-Zq-05B" firstAttribute="leading" secondItem="AFm-49-XRq" secondAttribute="trailing" constant="8" id="Pe4-Pc-y9q"/>
                                     <constraint firstItem="KLn-Cv-4GN" firstAttribute="baseline" secondItem="eZR-ZQ-Num" secondAttribute="baseline" id="Sdy-jR-mOw"/>
                                     <constraint firstItem="aR7-GN-Aib" firstAttribute="leading" secondItem="T5n-s8-As3" secondAttribute="leading" constant="20" symbolic="YES" id="Tf5-9I-jwz"/>
+                                    <constraint firstAttribute="trailing" secondItem="lU2-Zq-05B" secondAttribute="trailing" constant="20" id="TtI-33-btz"/>
                                     <constraint firstItem="snx-cv-KEP" firstAttribute="leading" secondItem="aR7-GN-Aib" secondAttribute="trailing" constant="8" symbolic="YES" id="WJj-qD-eIp"/>
                                     <constraint firstItem="aR7-GN-Aib" firstAttribute="baseline" secondItem="CBO-sM-ROo" secondAttribute="baseline" id="XCz-5Q-4IS"/>
                                     <constraint firstAttribute="trailing" secondItem="gox-Xr-iR9" secondAttribute="trailing" constant="20" id="XuY-ZP-Y2C"/>
@@ -975,6 +1012,7 @@
                                     <constraint firstItem="Vrb-iC-qk9" firstAttribute="trailing" secondItem="COz-6p-U8e" secondAttribute="trailing" id="dpQ-mc-w9q"/>
                                     <constraint firstItem="Vgb-Je-Pob" firstAttribute="trailing" secondItem="CBO-sM-ROo" secondAttribute="trailing" id="fVn-yr-GhK"/>
                                     <constraint firstItem="Vrb-iC-qk9" firstAttribute="baseline" secondItem="COz-6p-U8e" secondAttribute="baseline" id="g25-RQ-4V5"/>
+                                    <constraint firstItem="lU2-Zq-05B" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="gbI-6h-wA0"/>
                                     <constraint firstItem="KLn-Cv-4GN" firstAttribute="trailing" secondItem="eZR-ZQ-Num" secondAttribute="trailing" id="i9v-2r-LEO"/>
                                     <constraint firstItem="KLn-Cv-4GN" firstAttribute="leading" secondItem="eZR-ZQ-Num" secondAttribute="leading" id="jH2-96-TWd"/>
                                     <constraint firstItem="Vgb-Je-Pob" firstAttribute="leading" secondItem="snx-cv-KEP" secondAttribute="leading" id="oYH-1h-WpP"/>
@@ -1038,7 +1076,7 @@
                                     </binding>
                                 </connections>
                             </box>
-                            <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-jc-m0U">
+                            <splitView arrangesAllSubviews="NO" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-jc-m0U">
                                 <rect key="frame" x="0.0" y="31" width="1231" height="575"/>
                                 <subviews>
                                     <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="lvm-u4-FFm">
@@ -1278,29 +1316,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <splitView fixedFrame="YES" arrangesAllSubviews="NO" dividerStyle="thin" id="vDS-ob-aDJ">
-                                        <rect key="frame" x="175" y="0.0" width="1056" height="575"/>
+                                    <splitView focusRingType="none" fixedFrame="YES" arrangesAllSubviews="NO" id="vDS-ob-aDJ">
+                                        <rect key="frame" x="183" y="0.0" width="1048" height="575"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <customView fixedFrame="YES" id="imz-zU-xFV" customClass="GrapicTreeView" customModule="coverTreeDemo" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="1056" height="281"/>
+                                            <customView fixedFrame="YES" id="yB3-CP-Bct" customClass="GrapicTreeView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="333.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </customView>
                                             <customView id="Tkx-9H-Xew">
-                                                <rect key="frame" x="0.0" y="282" width="1056" height="293"/>
+                                                <rect key="frame" x="0.0" y="342.5" width="1048" height="232.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKc-zT-e0E">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1056" height="294"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="233"/>
                                                         <clipView key="contentView" id="wId-Gj-MTz">
-                                                            <rect key="frame" x="1" y="1" width="1039" height="292"/>
+                                                            <rect key="frame" x="1" y="1" width="1031" height="231"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" incrementalSearchingEnabled="YES" id="mXY-z5-qfM" userLabel="Info Text View" customClass="InfoTextView" customModule="coverTreeDemo" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1039" height="292"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1031" height="231"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <size key="minSize" width="1039" height="292"/>
+                                                                    <size key="minSize" width="1031" height="231"/>
                                                                     <size key="maxSize" width="1056" height="10000000"/>
                                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <connections>
@@ -1315,7 +1353,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="C7f-qj-pgM">
-                                                            <rect key="frame" x="1040" y="1" width="15" height="292"/>
+                                                            <rect key="frame" x="1032" y="1" width="15" height="231"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
@@ -1383,6 +1421,7 @@
                         <outlet property="dataSourcePopup" destination="snx-cv-KEP" id="MqM-4W-hfp"/>
                         <outlet property="infoTextController" destination="FAr-kq-wfQ" id="Xxx-ws-VGf"/>
                         <outlet property="nodeTableController" destination="kDi-iH-GLI" id="0N7-8M-Rcx"/>
+                        <outlet property="viewTypeControl" destination="lU2-Zq-05B" id="Q9v-eh-fHs"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

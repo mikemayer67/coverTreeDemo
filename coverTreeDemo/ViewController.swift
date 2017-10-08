@@ -10,14 +10,20 @@ import Cocoa
 
 class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
 {
+  
+  enum ViewType : Int {
+    case treeView    = 0
+    case polarView   = 1
+    case spatialView = 2
+  }
   // MARK: - Shared Attributes
   
   var document : Document!
   
-  dynamic              var randomizeDemoData = true
-  dynamic              var dataDimension = 2
-  dynamic              var dataCount = 20
-  dynamic              var animationStep = 20
+  dynamic var randomizeDemoData = true
+  dynamic var dataDimension     = 2
+  dynamic var dataCount         = 20
+  dynamic var animationStep     = 20
   
   let demos = [
     "Demo Set 1" : DataSet(DataPoint(50), DataPoint(25), DataPoint(97), DataPoint(32), DataPoint(95), DataPoint(8), DataPoint(4), DataPoint(12), DataPoint(42), DataPoint(60)),
@@ -35,9 +41,19 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   @IBOutlet weak var dataDimensionText: NSTextField!
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
+  @IBOutlet weak var viewTypeControl: NSSegmentedControl!
   
   @IBOutlet weak var nodeTableController : NodeTableController!
   @IBOutlet weak var infoTextController  : InfoTextController!
+  
+  private(set) var viewType : ViewType?
+  {
+    didSet
+    {
+      if viewType == oldValue { print("No change in view type: \(viewType)") }
+      else                    { print("View changed from \(oldValue) to \(viewType)") }
+    }
+  }
   
   // MARK: - Input View Methods
   
@@ -75,6 +91,9 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
       nodeTableController.tableView.reloadData()
       
       infoTextController.showing    = dataCount
+      
+      viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
+      viewType = .treeView
     }
     else
     {
@@ -192,6 +211,9 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     infoTextController.showing    = dataCount
     
+    viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
+    viewType = .treeView
+    
     generated = true
   }
   
@@ -203,6 +225,11 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   @IBAction func handleAnimationSlider(_ sender: NSSlider)
   {
     set(animationStep:animationStep)
+  }
+  
+  @IBAction func handleViewTypeControl(_ sender: NSSegmentedControl)
+  {
+    viewType = ViewType(rawValue: viewTypeControl.selectedSegment)
   }
   
   func set(animationStep newValue:Int)
