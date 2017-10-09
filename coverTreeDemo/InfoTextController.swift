@@ -14,12 +14,10 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
   @IBOutlet weak var viewController : ViewController!
   
   private var infoStrings = [[NSAttributedString]]()
-  private var infoRanges  = [NSRange]()
   
   func add(_ string: String, to node: Int)
   {
     while node >= infoStrings.count { infoStrings.append([]) }
-    while node >= infoRanges.count  { infoRanges.append(NSMakeRange(0, 0)) }
     
     var raw  = string as NSString
     let info = NSMutableAttributedString()
@@ -62,31 +60,17 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
     {
       let info = NSMutableAttributedString()
       
-      for node in 1...showing
+      info.bold("Node \(showing)").newline()
+      
+      for s in infoStrings[showing]
       {
-        let startOfRange = info.length;
-
-        let head = NSMutableAttributedString()
-        
-        if node > 1 { head.newline() }
-        head.bold("Node \(node)").newline()
-        info.append(head)
-        
-        for s in infoStrings[node]
-        {
-          let line = NSMutableAttributedString(string:"    ")
-          line.append(s)
-          line.newline()
-          info.append(line)
-        }
-        let endOfRange = info.length
-        
-        infoRanges[node] = NSMakeRange(startOfRange, endOfRange-startOfRange)
-        
-        print("End of info for node \(node) = \(info.length)")
+        let line = NSMutableAttributedString(string:"    ")
+        line.append(s)
+        line.newline()
+        info.append(line)
       }
       textView.textStorage?.setAttributedString(info)
-      textView.scrollToEndOfDocument(self)
+      textView.scrollToBeginningOfDocument(self)
     }
   }
   
@@ -102,7 +86,6 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
   
   func select(node:Int)
   {
-    print("Show inof for node \(node)")
-    textView.scrollRangeToVisible(infoRanges[node])
+    self.showing = node;
   }
 }
