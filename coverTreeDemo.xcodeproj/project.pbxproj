@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27346ADA1F89AA6A00843C41 /* PolarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346AD91F89AA6A00843C41 /* PolarView.swift */; };
+		27346ADC1F89AB0100843C41 /* SpatialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADB1F89AB0100843C41 /* SpatialView.swift */; };
+		27346ADE1F8A4C2800843C41 /* CoverTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */; };
 		274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274632B61F71507800EC51B4 /* NodeTableController.swift */; };
 		274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E206F1F5FAC600021A050 /* AppDelegate.swift */; };
 		274E20741F5FAC600021A050 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E20731F5FAC600021A050 /* Document.swift */; };
@@ -21,10 +24,13 @@
 		27C692F71F71AD650018EA6D /* InfoTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F61F71AD650018EA6D /* InfoTextController.swift */; };
 		27C692F91F71C2000018EA6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F81F71C2000018EA6D /* Extensions.swift */; };
 		27C85B2D1F8351D800EB9D0B /* CoverTreeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C85B2C1F8351D800EB9D0B /* CoverTreeError.swift */; };
-		27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */; };
+		27CF65D21F6A4C6600D38F80 /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* TreeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27346AD91F89AA6A00843C41 /* PolarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarView.swift; sourceTree = "<group>"; };
+		27346ADB1F89AB0100843C41 /* SpatialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpatialView.swift; sourceTree = "<group>"; };
+		27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeView.swift; sourceTree = "<group>"; };
 		274632B61F71507800EC51B4 /* NodeTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeTableController.swift; sourceTree = "<group>"; };
 		274E206F1F5FAC600021A050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274E20731F5FAC600021A050 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -42,7 +48,7 @@
 		27C692F61F71AD650018EA6D /* InfoTextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextController.swift; sourceTree = "<group>"; };
 		27C692F81F71C2000018EA6D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		27C85B2C1F8351D800EB9D0B /* CoverTreeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeError.swift; sourceTree = "<group>"; };
-		27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrapicTreeView.swift; sourceTree = "<group>"; };
+		27CF65D11F6A4C6600D38F80 /* TreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +112,11 @@
 			isa = PBXGroup;
 			children = (
 				274E20771F5FAC600021A050 /* Main.storyboard */,
-				27CF65D11F6A4C6600D38F80 /* GrapicTreeView.swift */,
+				27CF65D11F6A4C6600D38F80 /* TreeView.swift */,
+				27346AD91F89AA6A00843C41 /* PolarView.swift */,
+				27346ADB1F89AB0100843C41 /* SpatialView.swift */,
 				27C33E421F734CC10078C010 /* InfoTextView.swift */,
+				27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -191,15 +200,18 @@
 			files = (
 				27C692F71F71AD650018EA6D /* InfoTextController.swift in Sources */,
 				27C692F91F71C2000018EA6D /* Extensions.swift in Sources */,
-				27CF65D21F6A4C6600D38F80 /* GrapicTreeView.swift in Sources */,
+				27CF65D21F6A4C6600D38F80 /* TreeView.swift in Sources */,
 				274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */,
 				279072521F62D61F0017335B /* CoverTree.swift in Sources */,
 				27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */,
 				27BE74091F798624004C2F34 /* DataPoint.swift in Sources */,
 				27BE740C1F79882D004C2F34 /* CoverTreeNode.swift in Sources */,
+				27346ADE1F8A4C2800843C41 /* CoverTreeView.swift in Sources */,
 				274E20741F5FAC600021A050 /* Document.swift in Sources */,
+				27346ADA1F89AA6A00843C41 /* PolarView.swift in Sources */,
 				274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */,
 				2790725A1F637FA10017335B /* DataSet.swift in Sources */,
+				27346ADC1F89AB0100843C41 /* SpatialView.swift in Sources */,
 				279072541F62D6560017335B /* ViewController.swift in Sources */,
 				27C85B2D1F8351D800EB9D0B /* CoverTreeError.swift in Sources */,
 			);

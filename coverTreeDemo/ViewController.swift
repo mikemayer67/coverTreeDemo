@@ -46,16 +46,40 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   @IBOutlet weak var nodeTableController : NodeTableController!
   @IBOutlet weak var infoTextController  : InfoTextController!
   
+  @IBOutlet weak var treeView: TreeView!
+  @IBOutlet weak var polarView: PolarView!
+  @IBOutlet weak var spatialView: SpatialView!
+  
+  private var activeView: CoverTreeView?
+  
   private(set) var viewType : ViewType?
   {
     didSet
     {
-      if viewType == oldValue { print("No change in view type: \(viewType)") }
-      else                    { print("View changed from \(oldValue) to \(viewType)") }
+      if viewType != oldValue
+      {
+        switch viewType!
+        {
+        case .treeView:    activeView = treeView
+        case .polarView:   activeView = polarView
+        case .spatialView: activeView = spatialView
+        }
+        treeView.isHidden    = (activeView != treeView)
+        polarView.isHidden   = (activeView != polarView)
+        spatialView.isHidden = (activeView != spatialView)
+      }
     }
   }
+
   
   // MARK: - Input View Methods
+  
+  override func awakeFromNib()
+  {
+    super.awakeFromNib()
+    nodeTableController.viewController = self
+    infoTextController.viewController = self
+  }
   
   override func viewDidLoad()
   {
@@ -208,6 +232,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     nodeTableController.coverTree = document.coverTree
     nodeTableController.rows      = dataCount
+    nodeTableController.tableView.reloadData()
     
     infoTextController.showing    = dataCount
     
@@ -257,5 +282,13 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
       }
     }
     super.keyDown(with:event)
+  }
+  
+  // MARK :- Cross view methods
+  
+  func select(node:Int)
+  {
+    nodeTableController.select(node:node)
+    infoTextController.select(node:node)
   }
 }

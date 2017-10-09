@@ -676,7 +676,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-323" y="-128"/>
+            <point key="canvasLocation" x="-414" y="-189"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1076,7 +1076,7 @@
                                     </binding>
                                 </connections>
                             </box>
-                            <splitView arrangesAllSubviews="NO" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-jc-m0U">
+                            <splitView arrangesAllSubviews="NO" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-jc-m0U" userLabel="Horizontal Split">
                                 <rect key="frame" x="0.0" y="31" width="1231" height="575"/>
                                 <subviews>
                                     <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="lvm-u4-FFm">
@@ -1316,29 +1316,54 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <splitView focusRingType="none" fixedFrame="YES" arrangesAllSubviews="NO" id="vDS-ob-aDJ">
+                                    <splitView focusRingType="none" fixedFrame="YES" arrangesAllSubviews="NO" id="vDS-ob-aDJ" userLabel="Vertical Split">
                                         <rect key="frame" x="183" y="0.0" width="1048" height="575"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <customView fixedFrame="YES" id="yB3-CP-Bct" customClass="GrapicTreeView" customModule="coverTreeDemo" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="333.5"/>
+                                            <customView id="yB3-CP-Bct">
+                                                <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-Ww-8se" customClass="TreeView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
+                                                    </customView>
+                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3F0-a1-cWT" customClass="PolarView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
+                                                    </customView>
+                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0j2-bf-paw" customClass="SpatialView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
+                                                    </customView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="0j2-bf-paw" firstAttribute="top" secondItem="yB3-CP-Bct" secondAttribute="top" id="529-oS-xTQ"/>
+                                                    <constraint firstItem="3F0-a1-cWT" firstAttribute="leading" secondItem="yB3-CP-Bct" secondAttribute="leading" id="7wA-vo-ofA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="0j2-bf-paw" secondAttribute="bottom" id="Dmc-A3-9J1"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3F0-a1-cWT" secondAttribute="bottom" id="GNB-b9-nEI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3F0-a1-cWT" secondAttribute="trailing" id="Gdz-rJ-XbF"/>
+                                                    <constraint firstItem="gwZ-Ww-8se" firstAttribute="leading" secondItem="yB3-CP-Bct" secondAttribute="leading" id="Hpt-GX-5qx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gwZ-Ww-8se" secondAttribute="trailing" id="VDx-68-3MF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0j2-bf-paw" secondAttribute="trailing" id="W3W-Jd-SBP"/>
+                                                    <constraint firstItem="3F0-a1-cWT" firstAttribute="top" secondItem="yB3-CP-Bct" secondAttribute="top" id="Wvj-Hy-34a"/>
+                                                    <constraint firstItem="0j2-bf-paw" firstAttribute="leading" secondItem="yB3-CP-Bct" secondAttribute="leading" id="Zb4-kq-uqY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gwZ-Ww-8se" secondAttribute="bottom" id="i9U-no-wDb"/>
+                                                    <constraint firstItem="gwZ-Ww-8se" firstAttribute="top" secondItem="yB3-CP-Bct" secondAttribute="top" id="tks-rJ-Fi6"/>
+                                                </constraints>
                                             </customView>
                                             <customView id="Tkx-9H-Xew">
-                                                <rect key="frame" x="0.0" y="342.5" width="1048" height="232.5"/>
+                                                <rect key="frame" x="0.0" y="342" width="1048" height="233"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKc-zT-e0E">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="233"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1048" height="234"/>
                                                         <clipView key="contentView" id="wId-Gj-MTz">
-                                                            <rect key="frame" x="1" y="1" width="1031" height="231"/>
+                                                            <rect key="frame" x="1" y="1" width="1031" height="232"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textView editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" incrementalSearchingEnabled="YES" id="mXY-z5-qfM" userLabel="Info Text View" customClass="InfoTextView" customModule="coverTreeDemo" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1031" height="231"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="1031" height="232"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <size key="minSize" width="1031" height="231"/>
+                                                                    <size key="minSize" width="1031" height="232"/>
                                                                     <size key="maxSize" width="1056" height="10000000"/>
                                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <connections>
@@ -1353,7 +1378,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="C7f-qj-pgM">
-                                                            <rect key="frame" x="1032" y="1" width="15" height="231"/>
+                                                            <rect key="frame" x="1032" y="1" width="15" height="232"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
@@ -1421,6 +1446,9 @@
                         <outlet property="dataSourcePopup" destination="snx-cv-KEP" id="MqM-4W-hfp"/>
                         <outlet property="infoTextController" destination="FAr-kq-wfQ" id="Xxx-ws-VGf"/>
                         <outlet property="nodeTableController" destination="kDi-iH-GLI" id="0N7-8M-Rcx"/>
+                        <outlet property="polarView" destination="3F0-a1-cWT" id="GJd-1g-1N4"/>
+                        <outlet property="spatialView" destination="0j2-bf-paw" id="pvj-aM-Fae"/>
+                        <outlet property="treeView" destination="gwZ-Ww-8se" id="amk-km-Swi"/>
                         <outlet property="viewTypeControl" destination="lU2-Zq-05B" id="Q9v-eh-fHs"/>
                     </connections>
                 </viewController>

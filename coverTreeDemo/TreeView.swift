@@ -1,5 +1,5 @@
 //
-//  GrapicTreeView.swift
+//  TreeView.swift
 //  coverTreeDemo
 //
 //  Created by Mike Mayer on 9/14/17.
@@ -8,7 +8,8 @@
 
 import Cocoa
 
-class GrapicTreeView: NSView {
+class TreeView: CoverTreeView
+{
   
   override func draw(_ dirtyRect: NSRect)
   {
@@ -32,6 +33,11 @@ class GrapicTreeView: NSView {
     context?.setLineWidth(3.0)
     context?.addPath(path)
     context?.drawPath(using: .stroke)
+  }
+  
+  override func focus(on node: Int)
+  {
+    Swift.print("Focus TreeView on node \(node)")
   }
   
 }

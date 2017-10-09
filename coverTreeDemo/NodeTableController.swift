@@ -15,6 +15,7 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
   var coverTree : CoverTree!
   
   @IBOutlet weak var tableView : NSTableView!
+  @IBOutlet weak var viewController : ViewController!
   
   private var visibleRows = 0
   
@@ -132,5 +133,20 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
   func tableViewColumnDidResize(_ notification: Notification)
   {
     self.tableView.reloadData()
+  }
+  
+  func tableViewSelectionDidChange(_ notification: Notification)
+  {
+    viewController.select(node: 1 + self.tableView.selectedRow)
+  }
+  
+  func select(node:Int)
+  {
+    let row = node - 1
+    if tableView.selectedRow != row
+    {
+      tableView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+      tableView.scrollRowToVisible(row)
+    }
   }
 }

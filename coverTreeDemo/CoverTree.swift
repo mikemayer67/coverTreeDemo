@@ -240,7 +240,7 @@ class CoverTree: NSObject, NSCoding
     if candQi == nil { return false }
     
     let q = candQi!.node.addChild(p, id:self.nextID, atDistance: candQi!.dist)
-    pointHistory.append("Adding <\(q.ID)> as level \(q.level) child of <\(candQi!.node.ID)> based on distance of \(candQi!.dist)")
+    pointHistory.append("Adding <<\(q.ID)>> as level \(q.level) child of <<\(candQi!.node.ID)>> based on distance of \(candQi!.dist)")
     
     return true
   }
