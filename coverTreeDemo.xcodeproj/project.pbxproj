@@ -154,6 +154,7 @@
 					274E206B1F5FAC600021A050 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 642SNV9NK2;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -345,7 +346,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = "";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -359,7 +361,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = "";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

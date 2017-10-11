@@ -20,10 +20,10 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   
   var document : Document!
   
-  dynamic var randomizeDemoData = true
-  dynamic var dataDimension     = 2
-  dynamic var dataCount         = 20
-  dynamic var animationStep     = 20
+  @objc dynamic var randomizeDemoData = true
+  @objc dynamic var dataDimension     = 2
+  @objc dynamic var dataCount         = 20
+  @objc dynamic var animationStep     = 20
   
   let demos = [
     "Demo Set 1" : DataSet(DataPoint(50), DataPoint(25), DataPoint(97), DataPoint(32), DataPoint(95), DataPoint(8), DataPoint(4), DataPoint(12), DataPoint(42), DataPoint(60)),
@@ -32,9 +32,9 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   
   // MARK: - Bindings/Outlets
   
-  dynamic private(set) var generated = false
-  dynamic private(set) var randomData = true
-  dynamic private(set) var generateButtonEnabled = true
+  @objc dynamic private(set) var generated = false
+  @objc dynamic private(set) var randomData = true
+  @objc dynamic private(set) var generateButtonEnabled = true
   
   @IBOutlet weak var dataSourcePopup: NSPopUpButton!
   @IBOutlet weak var dataSourceFinal: NSTextField!
@@ -273,7 +273,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   
   override func keyDown(with event: NSEvent)
   {
-    if event.modifierFlags.contains(NSNumericPadKeyMask)
+    if event.modifierFlags.contains(.numericPad)
     {
       if let key = event.charactersIgnoringModifiers?.utf16.first
       {

@@ -16,7 +16,7 @@ class PolarView: CoverTreeView
     super.draw(dirtyRect)
     
     NSColor.yellow.setFill()
-    NSRectFill(bounds)
+    bounds.fill()
     
     let path = CGMutablePath()
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.maxY))
@@ -28,7 +28,7 @@ class PolarView: CoverTreeView
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.minY))
     path.addLine(to: CGPoint(x: bounds.minX, y: bounds.maxY))
     
-    let context = NSGraphicsContext.current()?.cgContext;
+    let context = NSGraphicsContext.current?.cgContext;
     
     context?.setLineWidth(5.0)
     context?.setStrokeColor(NSColor.red.cgColor)

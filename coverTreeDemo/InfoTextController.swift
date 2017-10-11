@@ -30,7 +30,7 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
       let b = a + match.range.length
       
       if a > 0 { info.normal(raw.substring(with: NSMakeRange(0,a))) }
-      if a < b { info.normal("<"); info.link(raw.substring(with:match.rangeAt(1))); info.normal(">") }
+      if a < b { info.normal("<"); info.link(raw.substring(with:match.range(at: 1))); info.normal(">") }
       
       if b < raw.length { raw = raw.substring(with: NSMakeRange(b,raw.length - b)) as NSString }
       else              { raw = "" }

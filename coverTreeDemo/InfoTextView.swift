@@ -12,7 +12,7 @@ class InfoTextView: NSTextView
 {
   override func keyDown(with event: NSEvent)
   {
-    if event.modifierFlags.contains(NSNumericPadKeyMask),
+    if event.modifierFlags.contains(.numericPad),
       let key = event.charactersIgnoringModifiers?.utf16.first
     {
       switch Int(key)

@@ -981,9 +981,9 @@
                                         </connections>
                                     </customView>
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rCS-YY-h2N">
-                                        <rect key="frame" x="702" y="21" width="273" height="19"/>
+                                        <rect key="frame" x="771" y="21" width="204" height="19"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="269" id="x9J-BK-g5c"/>
+                                            <constraint firstAttribute="width" constant="200" id="x9J-BK-g5c"/>
                                         </constraints>
                                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="Tzx-GW-iaO"/>
                                         <connections>

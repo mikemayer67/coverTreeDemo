@@ -12,14 +12,14 @@ class Document: NSDocument
 {
   private(set) var coverTree = CoverTree()
   
-  override class func autosavesInPlace() -> Bool {
+  override class var autosavesInPlace: Bool {
     return true
   }
   
   override func makeWindowControllers()
   {
-    let storyboard = NSStoryboard(name: "Main", bundle: nil)
-    let windowController = storyboard.instantiateController(withIdentifier: "Document Window Controller") as! NSWindowController
+    let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+    let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Document Window Controller")) as! NSWindowController
     self.addWindowController(windowController)
   }
   
@@ -37,7 +37,7 @@ class Document: NSDocument
     self.coverTree = ct
   }
   
-  override func restoreWindow(withIdentifier identifier: String, state: NSCoder, completionHandler: @escaping (NSWindow?, Error?) -> Void)
+  override func restoreWindow(withIdentifier identifier: NSUserInterfaceItemIdentifier, state: NSCoder, completionHandler: @escaping (NSWindow?, Error?) -> Void)
   {
     if coverTree.generated
     {

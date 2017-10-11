@@ -16,7 +16,7 @@ class SpatialView: CoverTreeView
     super.draw(dirtyRect)
     
     NSColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0).setFill()
-    NSRectFill(bounds)
+    bounds.fill()
     
     let path = CGMutablePath()
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.maxY))
@@ -28,7 +28,7 @@ class SpatialView: CoverTreeView
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.minY))
     path.addLine(to: CGPoint(x: bounds.minX, y: bounds.maxY))
     
-    let context = NSGraphicsContext.current()?.cgContext;
+    let context = NSGraphicsContext.current?.cgContext;
     
     context?.setLineWidth(2.0)
     context?.setStrokeColor(NSColor.purple.cgColor)
