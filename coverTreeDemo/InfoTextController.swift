@@ -18,7 +18,7 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
   func add(_ string: String, to node: Int)
   {
     while node >= infoStrings.count { infoStrings.append([]) }
-    
+
     var raw  = string as NSString
     let info = NSMutableAttributedString()
     

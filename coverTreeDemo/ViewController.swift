@@ -38,6 +38,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   
   @IBOutlet weak var dataSourcePopup: NSPopUpButton!
   @IBOutlet weak var dataSourceFinal: NSTextField!
+  @IBOutlet weak var dataInfoFinal: NSTextField!
   @IBOutlet weak var dataDimensionText: NSTextField!
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
@@ -103,6 +104,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     if generated
     {
       dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
+      dataInfoFinal.stringValue = "Dimension: \(ct.dim)  Samples: \(ct.count)"
       dataDimension = ct.dim
       dataCount     = ct.count
       
@@ -182,6 +184,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     let dataSource = dataSourcePopup.titleOfSelectedItem!
     
     dataSourceFinal.stringValue = dataSource
+    dataInfoFinal.stringValue = "Dimension: \(dataDimension)  Samples: \(dataCount)"
+
     
     var data : DataSet!
     
