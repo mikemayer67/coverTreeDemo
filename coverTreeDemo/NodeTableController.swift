@@ -113,7 +113,6 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
       let r = cs.boundingRect(with: NSMakeSize(2000, 100), options: [])
       if r.size.width > tableColumn!.width
       {
-        print("resizing \(column) from \(tableColumn!.width) to \(r.size.width)")
         tableColumn!.width = r.size.width + kColumnPad
       }
     }

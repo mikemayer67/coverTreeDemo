@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27314B761F8E548300FC443D /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27314B751F8E548300FC443D /* Statics.swift */; };
+		27314B781F8E554100FC443D /* FactoryStatics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27314B771F8E554100FC443D /* FactoryStatics.plist */; };
 		27346ADA1F89AA6A00843C41 /* PolarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346AD91F89AA6A00843C41 /* PolarView.swift */; };
 		27346ADC1F89AB0100843C41 /* SpatialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADB1F89AB0100843C41 /* SpatialView.swift */; };
 		27346ADE1F8A4C2800843C41 /* CoverTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27314B751F8E548300FC443D /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
+		27314B771F8E554100FC443D /* FactoryStatics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FactoryStatics.plist; sourceTree = "<group>"; };
 		27346AD91F89AA6A00843C41 /* PolarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarView.swift; sourceTree = "<group>"; };
 		27346ADB1F89AB0100843C41 /* SpatialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpatialView.swift; sourceTree = "<group>"; };
 		27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeView.swift; sourceTree = "<group>"; };
@@ -78,9 +82,11 @@
 				27BE74101F7B4743004C2F34 /* View */,
 				27BE740F1F7B4733004C2F34 /* Controller */,
 				27C692F81F71C2000018EA6D /* Extensions.swift */,
+				27314B751F8E548300FC443D /* Statics.swift */,
 				274E206F1F5FAC600021A050 /* AppDelegate.swift */,
 				274E20751F5FAC600021A050 /* Assets.xcassets */,
 				274E207A1F5FAC600021A050 /* Info.plist */,
+				27314B771F8E554100FC443D /* FactoryStatics.plist */,
 			);
 			path = coverTreeDemo;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27314B781F8E554100FC443D /* FactoryStatics.plist in Resources */,
 				274E20761F5FAC600021A050 /* Assets.xcassets in Resources */,
 				274E20791F5FAC600021A050 /* Main.storyboard in Resources */,
 			);
@@ -204,6 +211,7 @@
 				27CF65D21F6A4C6600D38F80 /* TreeView.swift in Sources */,
 				274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */,
 				279072521F62D61F0017335B /* CoverTree.swift in Sources */,
+				27314B761F8E548300FC443D /* Statics.swift in Sources */,
 				27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */,
 				27BE74091F798624004C2F34 /* DataPoint.swift in Sources */,
 				27BE740C1F79882D004C2F34 /* CoverTreeNode.swift in Sources */,
@@ -344,6 +352,7 @@
 				DEVELOPMENT_TEAM = 642SNV9NK2;
 				INFOPLIST_FILE = coverTreeDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = "";
@@ -359,6 +368,7 @@
 				DEVELOPMENT_TEAM = 642SNV9NK2;
 				INFOPLIST_FILE = coverTreeDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = "";

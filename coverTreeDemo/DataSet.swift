@@ -74,7 +74,9 @@ class DataSet : NSObject, NSCoding
       for i in 0...n-2
       {
         let j : Int = Int(arc4random_uniform(UInt32(n-i)))
-        if i != j { swap( &(points[i]), &(points[j]) ) }
+        let p = points[i]
+        points[i] = points[j]
+        points[j] = p
       }
     }
   }

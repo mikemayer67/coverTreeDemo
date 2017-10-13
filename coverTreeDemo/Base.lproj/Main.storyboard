@@ -705,10 +705,9 @@
                                         </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="snx-cv-KEP">
-                                        <rect key="frame" x="105" y="16" width="205" height="26"/>
+                                        <rect key="frame" x="105" y="16" width="119" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="LT3-wm-VYX"/>
-                                            <constraint firstAttribute="width" constant="200" id="dEc-YG-N3b"/>
                                         </constraints>
                                         <popUpButtonCell key="cell" type="push" title="Random Data" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="E67-i3-rbM" id="2L0-Zq-smt">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -725,9 +724,8 @@
                                         </connections>
                                     </popUpButton>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="CBO-sM-ROo">
-                                        <rect key="frame" x="313" y="21" width="116" height="18"/>
+                                        <rect key="frame" x="227" y="21" width="86" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="112" id="ir7-i2-ZrV"/>
                                             <constraint firstAttribute="height" constant="14" id="s3M-sq-GzR"/>
                                         </constraints>
                                         <buttonCell key="cell" type="check" title="randomize" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wlP-Xm-b3L">
@@ -757,10 +755,9 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hTF-hm-ZVi">
-                                        <rect key="frame" x="351" y="22" width="79" height="17"/>
+                                        <rect key="frame" x="265" y="22" width="79" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="Tx4-OR-Xeq"/>
-                                            <constraint firstAttribute="width" constant="75" id="Uog-Rz-HCM"/>
                                         </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Dimensions:" id="UOg-xn-j3i">
                                             <font key="font" metaFont="system"/>
@@ -784,9 +781,9 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="COz-6p-U8e">
-                                        <rect key="frame" x="436" y="19" width="45" height="22"/>
+                                        <rect key="frame" x="350" y="19" width="45" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="fvH-yf-oQ8"/>
+                                            <constraint firstAttribute="width" constant="45" id="0LS-g4-bRP"/>
                                             <constraint firstAttribute="height" constant="22" id="mXD-rN-Iiy"/>
                                         </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="2" drawsBackground="YES" id="wek-L6-LnH">
@@ -822,9 +819,8 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ola-Zm-BfY">
-                                        <rect key="frame" x="490" y="22" width="60" height="17"/>
+                                        <rect key="frame" x="404" y="22" width="60" height="17"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="56" id="21m-Yy-n4R"/>
                                             <constraint firstAttribute="height" constant="17" id="7db-uJ-u0o"/>
                                         </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Samples:" id="swE-g3-FZT">
@@ -849,7 +845,7 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eZR-ZQ-Num">
-                                        <rect key="frame" x="556" y="19" width="45" height="22"/>
+                                        <rect key="frame" x="470" y="19" width="45" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="tZ7-s4-sDn"/>
                                             <constraint firstAttribute="width" constant="45" id="yli-e8-lpH"/>
@@ -887,9 +883,8 @@
                                         </connections>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gox-Xr-iR9">
-                                        <rect key="frame" x="1059" y="13" width="158" height="32"/>
+                                        <rect key="frame" x="1090" y="13" width="127" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="146" id="cMm-ON-Mkj"/>
                                             <constraint firstAttribute="height" constant="21" id="cs1-3d-eSo"/>
                                         </constraints>
                                         <buttonCell key="cell" type="push" title="Generate Tree" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oUX-EN-Hfq">
@@ -987,6 +982,7 @@
                                         </constraints>
                                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="Tzx-GW-iaO"/>
                                         <connections>
+                                            <action selector="handleZoomSlider:" target="5gI-5U-AMq" id="jCs-zd-doj"/>
                                             <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.generated" id="GjL-UW-WAV">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -1047,9 +1043,6 @@
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1eu-CV-b8O" userLabel="AnimationCounter">
                                 <rect key="frame" x="1190" y="3" width="29" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="09D-19-8Se"/>
-                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="000" id="6rk-bd-kV7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1452,6 +1445,7 @@
                         <outlet property="spatialView" destination="0j2-bf-paw" id="pvj-aM-Fae"/>
                         <outlet property="treeView" destination="gwZ-Ww-8se" id="amk-km-Swi"/>
                         <outlet property="viewTypeControl" destination="lU2-Zq-05B" id="Q9v-eh-fHs"/>
+                        <outlet property="zoomSlider" destination="rCS-YY-h2N" id="Uyu-DS-IV0"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

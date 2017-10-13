@@ -10,6 +10,7 @@ import Cocoa
 
 class TreeView: CoverTreeView
 {
+
   
   override func draw(_ dirtyRect: NSRect)
   {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MinNodeDiameter</key>
+	<integer>15</integer>
+	<key>MaxNodeDiameter</key>
+	<integer>50</integer>
+	<key>MinLinkSep</key>
+	<integer>15</integer>
+	<key>NodeFontSize</key>
+	<integer>12</integer>
+	<key>LinkFontSize</key>
+	<integer>8</integer>
+</dict>
+</plist>

@@ -10,7 +10,6 @@ import Cocoa
 
 class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
 {
-  
   enum ViewType : Int {
     case treeView    = 0
     case polarView   = 1
@@ -43,37 +42,18 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
   @IBOutlet weak var viewTypeControl: NSSegmentedControl!
+  @IBOutlet weak var zoomSlider: NSSlider!
   
   @IBOutlet weak var nodeTableController : NodeTableController!
   @IBOutlet weak var infoTextController  : InfoTextController!
   
-  @IBOutlet weak var treeView: TreeView!
-  @IBOutlet weak var polarView: PolarView!
-  @IBOutlet weak var spatialView: SpatialView!
+  @IBOutlet weak var treeView    : TreeView!
+  @IBOutlet weak var polarView   : PolarView!
+  @IBOutlet weak var spatialView : SpatialView!
   
-  private var activeView: CoverTreeView?
-  
-  private(set) var viewType : ViewType?
-  {
-    didSet
-    {
-      if viewType != oldValue
-      {
-        switch viewType!
-        {
-        case .treeView:    activeView = treeView
-        case .polarView:   activeView = polarView
-        case .spatialView: activeView = spatialView
-        }
-        treeView.isHidden    = (activeView != treeView)
-        polarView.isHidden   = (activeView != polarView)
-        spatialView.isHidden = (activeView != spatialView)
-      }
-    }
-  }
-
-  
-  // MARK: - Input View Methods
+  //
+  // MARK: - Loading View Controller
+  //
   
   override func awakeFromNib()
   {
@@ -85,7 +65,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
     view.window?.delegate = self
   }
   
@@ -93,78 +72,59 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   {
     super.viewWillAppear()
     guard document == nil else { return }  // only do the rest of the setup if this is first pass
-    
+        
     document = view.window?.windowController?.document as? Document!
     
-    let ct = document.coverTree
-    
+    let ct    = document.coverTree
     ct.logger = infoTextController
     
-    generated = ct.generated
-    if generated
+    if ct.generated { configureToShowTree() }
+    else            { configureForInput()   }
+  }
+  
+  //
+  // MARK: - Tree Not Yet Generated
+  //
+  
+  func configureForInput()
+  {
+    for (key,_) in demos { dataSourcePopup.addItem(withTitle: key) }
+    
+    let defaults = UserDefaults.standard
+    if defaults.bool(forKey: "initialized")
     {
-      dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
-      dataInfoFinal.stringValue = "Dimension: \(ct.dim)  Samples: \(ct.count)"
-      dataDimension = ct.dim
-      dataCount     = ct.count
+      var dataSourceSelection = defaults.integer( forKey: "dataSource"        )
+      randomizeDemoData       = defaults.bool(    forKey: "randomizeDemoData" )
+      dataDimension           = defaults.integer( forKey: "dataDimension"     )
+      dataCount               = defaults.integer( forKey: "dataCount"         )
       
-      animationSlider.maxValue = Double(dataCount)
-      animationSlider.numberOfTickMarks = dataCount
-      animationStep = dataCount
+      if dataDimension < 1 { dataDimension = 1 }
+      if dataCount     < 1 { dataCount     = 1 }
       
-      nodeTableController.coverTree = ct
-      nodeTableController.rows      = dataCount
-      nodeTableController.tableView.reloadData()
+      if dataSourceSelection < 0           { dataSourceSelection = 0 }
+      if dataSourceSelection > demos.count { dataSourceSelection = 0 }
       
-      infoTextController.showing    = dataCount
-      
-      viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
-      viewType = .treeView
+      dataSourcePopup.selectItem(at: dataSourceSelection)
     }
-    else
+    
+    if let minDim = (dataDimensionText.formatter as! NumberFormatter).minimum,
+       let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
     {
-      for (key,_) in demos
-      {
-        dataSourcePopup.addItem(withTitle: key)
-      }
-      
-      let defaults = UserDefaults.standard
-      if defaults.bool(forKey: "initialized")
-      {
-        var dataSourceSelection = defaults.integer(forKey: "dataSource")
-        randomizeDemoData       = defaults.bool(forKey: "randomizeDemoData")
-        dataDimension           = defaults.integer(forKey: "dataDimension")
-        dataCount               = defaults.integer(forKey:"dataCount")
-        
-        if dataDimension < 1 { dataDimension = 1 }
-        if dataCount     < 1 { dataCount     = 1 }
-        
-        if dataSourceSelection < 0           { dataSourceSelection = 0 }
-        if dataSourceSelection > demos.count { dataSourceSelection = 0 }
-        
-        dataSourcePopup.selectItem(at: dataSourceSelection)
-      }
-      
-      if let minDim = (dataDimensionText.formatter as! NumberFormatter).minimum,
-        let maxDim = (dataDimensionText.formatter as! NumberFormatter).maximum
-      {
-        dataDimensionText.toolTip = "Valid range: \(minDim)-\(maxDim)"
-      }
-      if let minCount = (dataCountText.formatter as! NumberFormatter).minimum,
-        let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
-      {
-        dataCountText.toolTip     = "Valid range: \(minCount)-\(maxCount)"
-      }
-      
-      randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
+      dataDimensionText.toolTip = "Valid range: \(minDim)-\(maxDim)"
     }
+    if let minCount = (dataCountText.formatter as! NumberFormatter).minimum,
+       let maxCount = (dataCountText.formatter as! NumberFormatter).maximum
+    {
+      dataCountText.toolTip     = "Valid range: \(minCount)-\(maxCount)"
+    }
+    
+    randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
   }
   
   @IBAction func handleDataSource(_ sender: NSPopUpButton)
   {
     randomData = ( dataSourcePopup.indexOfSelectedItem == 0 )
   }
-  
   
   @IBAction func handleGenerate(_ sender: NSButton)
   {
@@ -228,13 +188,49 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     document.updateChangeCount(.changeDone)
     
-    // update views
+    self.configureToShowTree()
+//
+//    // update views
+//
+//    animationSlider.maxValue = Double(dataCount)
+//    animationSlider.numberOfTickMarks = dataCount
+//    animationStep = dataCount
+//
+//    nodeTableController.coverTree = document.coverTree
+//    nodeTableController.rows      = dataCount
+//    nodeTableController.tableView.reloadData()
+//
+//    infoTextController.showing    = dataCount
+//
+//    viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
+//    viewType = .treeView
+//
+//    generated = true
+  }
+  
+  override func controlTextDidEndEditing  (_ obj: Notification) { generateButtonEnabled = true }
+  override func controlTextDidBeginEditing(_ obj: Notification) { generateButtonEnabled = false  }
+  
+  func control(_ control: NSControl, isValidObject obj: Any?) -> Bool { return obj != nil }
+  
+  //
+  // MARK: - Generated Tree Being Shown
+  //
+  
+  func configureToShowTree()
+  {
+    let ct    = document.coverTree
+
+    dataSourceFinal.stringValue = ct.dataSource ?? "unknown"
+    dataInfoFinal.stringValue = "Dimension: \(ct.dim)  Samples: \(ct.count)"
+    dataDimension = ct.dim
+    dataCount     = ct.count
     
     animationSlider.maxValue = Double(dataCount)
     animationSlider.numberOfTickMarks = dataCount
     animationStep = dataCount
     
-    nodeTableController.coverTree = document.coverTree
+    nodeTableController.coverTree = ct
     nodeTableController.rows      = dataCount
     nodeTableController.tableView.reloadData()
     
@@ -245,11 +241,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     generated = true
   }
-  
-  override func controlTextDidEndEditing  (_ obj: Notification) { generateButtonEnabled = true }
-  override func controlTextDidBeginEditing(_ obj: Notification) { generateButtonEnabled = false  }
-  
-  func control(_ control: NSControl, isValidObject obj: Any?) -> Bool { return obj != nil }
   
   @IBAction func handleAnimationSlider(_ sender: NSSlider)
   {
@@ -294,5 +285,35 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   {
     nodeTableController.select(node:node)
     infoTextController.select(node:node)
+  }
+  
+  private        var activeView  : CoverTreeView?
+  
+  private(set) var viewType : ViewType?
+  {
+    didSet
+    {
+      if viewType != oldValue
+      {
+        let oldView = activeView
+        switch viewType!
+        {
+        case .treeView:     activeView = treeView
+        case .polarView:    activeView = polarView
+        case .spatialView:  activeView = spatialView
+        }
+        activeView?.isHidden = false
+        oldView?.isHidden = true
+      }
+    }
+  }
+  
+  @IBAction func handleZoomSlider(_ sender: NSSlider)
+  {
+    let zoom = CGFloat(sender.floatValue)
+    
+    treeView.zoom = zoom
+    polarView.zoom = zoom
+    spatialView.zoom = zoom
   }
 }
