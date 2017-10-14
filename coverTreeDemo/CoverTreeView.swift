@@ -12,22 +12,6 @@ class CoverTreeView : NSView
 {
   private var redrawTimer : Timer?
   
-  var active = false
-  {
-    didSet
-    {
-      if active
-      {
-        if needsRedraw, oldValue == false { redraw() }
-      }
-      else
-      {
-        redrawTimer?.invalidate()
-        redrawTimer = nil
-      }
-    }
-  }
-  
   private var needsRedraw = true
   
   var zoom : CGFloat = 0.0
@@ -35,8 +19,22 @@ class CoverTreeView : NSView
     didSet {
       if zoom != oldValue
       {
+        print("Change zoom from \(oldValue) to \(zoom) for \(self.className)")
         needsRedraw = true
-        if active { zoom(from:oldValue, to:zoom) }
+        if self.isHidden == false
+        {
+
+          redrawTimer?.invalidate()
+          redrawTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false)
+          {
+            (Timer)->Void in
+            self.redrawTimer = nil
+            print("Redraw callback... New scale:\(self.zoom)")
+            self.redraw();
+            
+            self.needsRedraw = false
+          }
+        }
       }
     }
   }
@@ -49,20 +47,11 @@ class CoverTreeView : NSView
   func redraw()
   {
     print("Need to implement redraw() for \(String(describing: type(of: self)))")
-    needsRedraw = false
     
   }
   
   func zoom(from:CGFloat, to:CGFloat)
   {
-    print("Zoom(from:\(from), to:\(to))")
-    redrawTimer?.invalidate()
-    redrawTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false)
-    {
-      (Timer)->Void in
-      self.redrawTimer = nil
-      print("Redraw callback... New scale:\(self.zoom)")
-      self.redraw();
-    }
+    print("Zoom(from:\(from), to:\(to)) for \(self.className)")
   }
 }

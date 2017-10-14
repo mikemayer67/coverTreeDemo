@@ -189,23 +189,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     document.updateChangeCount(.changeDone)
     
     self.configureToShowTree()
-//
-//    // update views
-//
-//    animationSlider.maxValue = Double(dataCount)
-//    animationSlider.numberOfTickMarks = dataCount
-//    animationStep = dataCount
-//
-//    nodeTableController.coverTree = document.coverTree
-//    nodeTableController.rows      = dataCount
-//    nodeTableController.tableView.reloadData()
-//
-//    infoTextController.showing    = dataCount
-//
-//    viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
-//    viewType = .treeView
-//
-//    generated = true
   }
   
   override func controlTextDidEndEditing  (_ obj: Notification) { generateButtonEnabled = true }
@@ -216,6 +199,32 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   //
   // MARK: - Generated Tree Being Shown
   //
+  
+  @objc dynamic var zoom : CGFloat = 0.0
+  
+  private var activeView  : CoverTreeView?
+
+  
+  private(set) var viewType : ViewType?
+  {
+    didSet
+    {
+      if viewType != oldValue
+      {
+        let oldView = activeView
+        switch viewType!
+        {
+        case .treeView:     activeView = treeView
+        case .polarView:    activeView = polarView
+        case .spatialView:  activeView = spatialView
+        }
+        activeView?.isHidden = false
+        oldView?.isHidden = true
+        
+        zoom = activeView?.zoom ?? 0.0
+      }
+    }
+  }
   
   func configureToShowTree()
   {
@@ -231,8 +240,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     animationStep = dataCount
     
     nodeTableController.coverTree = ct
-    nodeTableController.rows      = dataCount
     nodeTableController.tableView.reloadData()
+    nodeTableController.select(node: dataCount)
     
     infoTextController.showing    = dataCount
     
@@ -258,7 +267,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     
     if animationStep != newValue { animationStep = newValue }
     
-    nodeTableController.rows   = animationStep
+    nodeTableController.select(node:animationStep)
     infoTextController.showing = animationStep
   }
   
@@ -285,35 +294,12 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   {
     nodeTableController.select(node:node)
     infoTextController.select(node:node)
-  }
-  
-  private        var activeView  : CoverTreeView?
-  
-  private(set) var viewType : ViewType?
-  {
-    didSet
-    {
-      if viewType != oldValue
-      {
-        let oldView = activeView
-        switch viewType!
-        {
-        case .treeView:     activeView = treeView
-        case .polarView:    activeView = polarView
-        case .spatialView:  activeView = spatialView
-        }
-        activeView?.isHidden = false
-        oldView?.isHidden = true
-      }
-    }
+    
+    if node > animationStep { animationStep = node }
   }
   
   @IBAction func handleZoomSlider(_ sender: NSSlider)
   {
-    let zoom = CGFloat(sender.floatValue)
-    
-    treeView.zoom = zoom
-    polarView.zoom = zoom
-    spatialView.zoom = zoom
+    activeView?.zoom = zoom
   }
 }

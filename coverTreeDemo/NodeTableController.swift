@@ -17,37 +17,9 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
   @IBOutlet weak var tableView : NSTableView!
   @IBOutlet weak var viewController : ViewController!
   
-  private var visibleRows = 0
-  
-  var rows : Int
-  {
-    get { return visibleRows }
-    set
-    {      
-      let newCount = max( 1, min( newValue, coverTree.count ) )
-      
-      if visibleRows > 0
-      {
-        if newCount > visibleRows
-        {
-          tableView.beginUpdates()
-          tableView.insertRows(at: IndexSet(visibleRows ... newCount-1), withAnimation: [])
-          tableView.endUpdates()
-        }
-        else if newCount < visibleRows
-        {
-          tableView.beginUpdates()
-          tableView.removeRows(at: IndexSet(newCount ... visibleRows-1), withAnimation: [])
-          tableView.endUpdates()
-        }
-      }
-      visibleRows = newCount
-    }
-  }
-  
   func numberOfRows(in tableView: NSTableView) -> Int
   {
-    return visibleRows
+    return coverTree==nil ? 0 : coverTree.count
   }
   
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView?

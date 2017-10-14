@@ -988,6 +988,7 @@
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
+                                            <binding destination="5gI-5U-AMq" name="value" keyPath="self.zoom" id="kem-p0-7nc"/>
                                         </connections>
                                     </slider>
                                 </subviews>
