@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		27314B761F8E548300FC443D /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27314B751F8E548300FC443D /* Statics.swift */; };
 		27314B781F8E554100FC443D /* FactoryStatics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27314B771F8E554100FC443D /* FactoryStatics.plist */; };
-		27346ADA1F89AA6A00843C41 /* PolarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346AD91F89AA6A00843C41 /* PolarView.swift */; };
-		27346ADC1F89AB0100843C41 /* SpatialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADB1F89AB0100843C41 /* SpatialView.swift */; };
 		27346ADE1F8A4C2800843C41 /* CoverTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */; };
 		274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274632B61F71507800EC51B4 /* NodeTableController.swift */; };
 		274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E206F1F5FAC600021A050 /* AppDelegate.swift */; };
@@ -20,20 +18,21 @@
 		279072521F62D61F0017335B /* CoverTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072511F62D61F0017335B /* CoverTree.swift */; };
 		279072541F62D6560017335B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072531F62D6560017335B /* ViewController.swift */; };
 		2790725A1F637FA10017335B /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279072591F637FA10017335B /* DataSet.swift */; };
+		27B596651F93A4D70073ECDA /* TreeViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B596641F93A4D70073ECDA /* TreeViewRenderer.swift */; };
+		27B596671F93A54F0073ECDA /* CoverTreeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B596661F93A54F0073ECDA /* CoverTreeRenderer.swift */; };
+		27B596691F93A8A60073ECDA /* PolarTreeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B596681F93A8A60073ECDA /* PolarTreeRenderer.swift */; };
+		27B5966B1F93A8EA0073ECDA /* SpatialViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B5966A1F93A8EA0073ECDA /* SpatialViewRenderer.swift */; };
 		27BE74091F798624004C2F34 /* DataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE74081F798624004C2F34 /* DataPoint.swift */; };
 		27BE740C1F79882D004C2F34 /* CoverTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE740B1F79882D004C2F34 /* CoverTreeNode.swift */; };
 		27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33E421F734CC10078C010 /* InfoTextView.swift */; };
 		27C692F71F71AD650018EA6D /* InfoTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F61F71AD650018EA6D /* InfoTextController.swift */; };
 		27C692F91F71C2000018EA6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692F81F71C2000018EA6D /* Extensions.swift */; };
 		27C85B2D1F8351D800EB9D0B /* CoverTreeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C85B2C1F8351D800EB9D0B /* CoverTreeError.swift */; };
-		27CF65D21F6A4C6600D38F80 /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF65D11F6A4C6600D38F80 /* TreeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		27314B751F8E548300FC443D /* Statics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		27314B771F8E554100FC443D /* FactoryStatics.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FactoryStatics.plist; sourceTree = "<group>"; };
-		27346AD91F89AA6A00843C41 /* PolarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarView.swift; sourceTree = "<group>"; };
-		27346ADB1F89AB0100843C41 /* SpatialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpatialView.swift; sourceTree = "<group>"; };
 		27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeView.swift; sourceTree = "<group>"; };
 		274632B61F71507800EC51B4 /* NodeTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeTableController.swift; sourceTree = "<group>"; };
 		274E206F1F5FAC600021A050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +43,10 @@
 		279072511F62D61F0017335B /* CoverTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTree.swift; sourceTree = "<group>"; };
 		279072531F62D6560017335B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		279072591F637FA10017335B /* DataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
+		27B596641F93A4D70073ECDA /* TreeViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeViewRenderer.swift; sourceTree = "<group>"; };
+		27B596661F93A54F0073ECDA /* CoverTreeRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeRenderer.swift; sourceTree = "<group>"; };
+		27B596681F93A8A60073ECDA /* PolarTreeRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarTreeRenderer.swift; sourceTree = "<group>"; };
+		27B5966A1F93A8EA0073ECDA /* SpatialViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpatialViewRenderer.swift; path = ../SpatialViewRenderer.swift; sourceTree = "<group>"; };
 		27B830461F6F08DF007D4606 /* coverTreeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coverTreeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27BE74081F798624004C2F34 /* DataPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPoint.swift; sourceTree = "<group>"; };
 		27BE740B1F79882D004C2F34 /* CoverTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeNode.swift; sourceTree = "<group>"; };
@@ -52,7 +55,6 @@
 		27C692F61F71AD650018EA6D /* InfoTextController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextController.swift; sourceTree = "<group>"; };
 		27C692F81F71C2000018EA6D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		27C85B2C1F8351D800EB9D0B /* CoverTreeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverTreeError.swift; sourceTree = "<group>"; };
-		27CF65D11F6A4C6600D38F80 /* TreeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,10 +121,11 @@
 			children = (
 				274E20771F5FAC600021A050 /* Main.storyboard */,
 				27C33E421F734CC10078C010 /* InfoTextView.swift */,
-				27CF65D11F6A4C6600D38F80 /* TreeView.swift */,
-				27346AD91F89AA6A00843C41 /* PolarView.swift */,
-				27346ADB1F89AB0100843C41 /* SpatialView.swift */,
 				27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */,
+				27B596661F93A54F0073ECDA /* CoverTreeRenderer.swift */,
+				27B596641F93A4D70073ECDA /* TreeViewRenderer.swift */,
+				27B596681F93A8A60073ECDA /* PolarTreeRenderer.swift */,
+				27B5966A1F93A8EA0073ECDA /* SpatialViewRenderer.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -171,7 +174,7 @@
 				};
 			};
 			buildConfigurationList = 274E20671F5FAC600021A050 /* Build configuration list for PBXProject "coverTreeDemo" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -208,21 +211,22 @@
 			files = (
 				27C692F71F71AD650018EA6D /* InfoTextController.swift in Sources */,
 				27C692F91F71C2000018EA6D /* Extensions.swift in Sources */,
-				27CF65D21F6A4C6600D38F80 /* TreeView.swift in Sources */,
 				274E20701F5FAC600021A050 /* AppDelegate.swift in Sources */,
 				279072521F62D61F0017335B /* CoverTree.swift in Sources */,
+				27B5966B1F93A8EA0073ECDA /* SpatialViewRenderer.swift in Sources */,
 				27314B761F8E548300FC443D /* Statics.swift in Sources */,
 				27C33E431F734CC10078C010 /* InfoTextView.swift in Sources */,
+				27B596651F93A4D70073ECDA /* TreeViewRenderer.swift in Sources */,
 				27BE74091F798624004C2F34 /* DataPoint.swift in Sources */,
 				27BE740C1F79882D004C2F34 /* CoverTreeNode.swift in Sources */,
 				27346ADE1F8A4C2800843C41 /* CoverTreeView.swift in Sources */,
+				27B596691F93A8A60073ECDA /* PolarTreeRenderer.swift in Sources */,
 				274E20741F5FAC600021A050 /* Document.swift in Sources */,
-				27346ADA1F89AA6A00843C41 /* PolarView.swift in Sources */,
 				274632B71F71507800EC51B4 /* NodeTableController.swift in Sources */,
 				2790725A1F637FA10017335B /* DataSet.swift in Sources */,
-				27346ADC1F89AB0100843C41 /* SpatialView.swift in Sources */,
 				279072541F62D6560017335B /* ViewController.swift in Sources */,
 				27C85B2D1F8351D800EB9D0B /* CoverTreeError.swift in Sources */,
+				27B596671F93A54F0073ECDA /* CoverTreeRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +360,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -372,7 +376,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vmwishes.app1.coverTreeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

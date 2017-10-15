@@ -23,7 +23,7 @@ extension NSMutableAttributedString
   {
     let t = NSAttributedString (
       string:text,
-      attributes:[NSAttributedStringKey.font : NSFont.boldSystemFont(ofSize: size)]
+      attributes:[NSFontAttributeName : NSFont.boldSystemFont(ofSize: size)]
     )
     self.append(t)
     
@@ -35,7 +35,7 @@ extension NSMutableAttributedString
     self.append(
       NSAttributedString(
         string:text,
-        attributes:[NSAttributedStringKey.font : NSFont.systemFont(ofSize: size)]
+        attributes:[NSFontAttributeName : NSFont.systemFont(ofSize: size)]
       )
     )
     return self
@@ -51,8 +51,8 @@ extension NSMutableAttributedString
     self.append(
       NSAttributedString(
         string:text,
-        attributes:[NSAttributedStringKey.font : NSFont.systemFont(ofSize: size),
-                    NSAttributedStringKey.link : link ]
+        attributes:[NSFontAttributeName : NSFont.systemFont(ofSize: size),
+                    NSLinkAttributeName : link ]
       )
     )
     return self

@@ -10,19 +10,71 @@ import Cocoa
 
 class CoverTreeView : NSView
 {
+  enum ViewType : Int {
+    case treeView    = 0
+    case polarView   = 1
+    case spatialView = 2
+  }
+  
+  @IBOutlet var zoomSlider       : NSSlider!
+  @IBOutlet var viewTypeSelector : NSSegmentedControl!
+  
+  // MARK: - Initialization
+  
+  var renderers = [ViewType:CoverTreeRenderer]()
+  
+  override func awakeFromNib()
+  {
+    renderers[.treeView]    = TreeViewRenderer(self)
+    renderers[.polarView]   = PolarViewRenderer(self)
+    renderers[.spatialView] = SpatialViewRenderer(self)
+  }
+
   var coverTree : CoverTree!
+  {
+    didSet {
+      if coverTree.dim > 3
+      {
+        viewTypeSelector.segmentCount = 2
+        if viewType == .spatialView
+        {
+          viewType = .treeView
+          viewTypeIndex = viewType.rawValue
+        }
+      }
+      else
+      {
+        viewTypeSelector.segmentCount = 3
+      }
+    }
+  }
+  
+  // MARK: - Zoom/Redraw methods
   
   private var redrawTimer : Timer?
   private var needsRedraw = true
   
   override var isOpaque : Bool { return true }
   
-  var zoom : CGFloat = 0.0
+  private(set) var viewType = ViewType.treeView
+  
+  @objc dynamic var viewTypeIndex : Int = 0
+  {
+    didSet {
+      if viewTypeIndex != oldValue
+      {
+        viewType = ViewType(rawValue: viewTypeIndex)!
+        redraw()
+      }
+    }
+  }
+  
+  @objc dynamic var zoom : Double = 0.0
   {
     didSet {
       if zoom != oldValue
       {
-        print("Change zoom from \(oldValue) to \(zoom) for \(self.className)")
+        Swift.print("Change zoom from \(oldValue) to \(zoom) for \(self.className)")
         needsRedraw = true
         if self.isHidden == false
         {
@@ -32,7 +84,7 @@ class CoverTreeView : NSView
           {
             (Timer)->Void in
             self.redrawTimer = nil
-            print("Redraw callback... New scale:\(self.zoom)")
+            Swift.print("Redraw callback... New scale:\(self.zoom)")
             self.redraw();
             
             self.needsRedraw = false
@@ -44,17 +96,20 @@ class CoverTreeView : NSView
   
   func focus(on node:Int)
   {
-    print("Need to implement focus() for \(String(describing: type(of: self)))")
+    Swift.print("Need to implement focus() for \(viewType)")
   }
   
   func redraw()
   {
-    print("Need to implement redraw() for \(String(describing: type(of: self)))")
-    
+    Swift.print("Redraw \(viewType)")
+
+    self.setNeedsDisplay(bounds)
   }
   
-  func zoom(from:CGFloat, to:CGFloat)
+  override func draw(_ dirtyRect: NSRect)
   {
-    print("Zoom(from:\(from), to:\(to)) for \(self.className)")
+    super.draw(dirtyRect)
+    Swift.print("Render \(viewType)")
+    renderers[viewType]?.draw(dirtyRect)
   }
 }

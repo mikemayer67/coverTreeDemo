@@ -10,11 +10,6 @@ import Cocoa
 
 class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, InfoTextControllerDelegate, NodeTableControllerDelegate
 {
-  enum ViewType : Int {
-    case treeView    = 0
-    case polarView   = 1
-    case spatialView = 2
-  }
   // MARK: - Shared Attributes
   
   var document : Document!
@@ -41,15 +36,12 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, I
   @IBOutlet weak var dataDimensionText: NSTextField!
   @IBOutlet weak var dataCountText: NSTextField!
   @IBOutlet weak var animationSlider: NSSlider!
-  @IBOutlet weak var viewTypeControl: NSSegmentedControl!
-  @IBOutlet weak var zoomSlider: NSSlider!
+//  @IBOutlet weak var viewTypeControl: NSSegmentedControl!
+//  @IBOutlet weak var zoomSlider: NSSlider!
   
   @IBOutlet weak var nodeTableController : NodeTableController!
   @IBOutlet weak var infoTextController  : InfoTextController!
-  
-  @IBOutlet weak var treeView    : TreeView!
-  @IBOutlet weak var polarView   : PolarView!
-  @IBOutlet weak var spatialView : SpatialView!
+  @IBOutlet weak var coverTreeView       : CoverTreeView!
   
   //
   // MARK: - Loading View Controller
@@ -200,31 +192,31 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, I
   // MARK: - Generated Tree Being Shown
   //
   
-  @objc dynamic var zoom : CGFloat = 0.0
-  
-  private var activeView  : CoverTreeView?
-
-  
-  private(set) var viewType : ViewType?
-  {
-    didSet
-    {
-      if viewType != oldValue
-      {
-        let oldView = activeView
-        switch viewType!
-        {
-        case .treeView:     activeView = treeView
-        case .polarView:    activeView = polarView
-        case .spatialView:  activeView = spatialView
-        }
-        activeView?.isHidden = false
-        oldView?.isHidden = true
-        
-        zoom = activeView?.zoom ?? 0.0
-      }
-    }
-  }
+//  @objc dynamic var zoom : CGFloat = 0.0
+//  
+//  private var activeView  : CoverTreeView?
+//
+//  
+////  private(set) var viewType : ViewType?
+//  {
+//    didSet
+//    {
+//      if viewType != oldValue
+//      {
+//        let oldView = activeView
+//        switch viewType!
+//        {
+//        case .treeView:     activeView = treeView
+//        case .polarView:    activeView = polarView
+//        case .spatialView:  activeView = spatialView
+//        }
+//        activeView?.isHidden = false
+//        oldView?.isHidden = true
+//        
+//        zoom = activeView?.zoom ?? 0.0
+//      }
+//    }
+//  }
   
   func configureToShowTree()
   {
@@ -245,12 +237,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, I
     
     infoTextController.showing    = dataCount
     
-    viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
-    viewType = .treeView
-    
-    treeView.coverTree = ct
-    polarView.coverTree = ct
-    spatialView.coverTree = ct
+    coverTreeView.coverTree = ct
     
     generated = true
   }
@@ -260,11 +247,11 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, I
     set(animationStep:animationStep)
   }
   
-  @IBAction func handleViewTypeControl(_ sender: NSSegmentedControl)
-  {
-    viewType = ViewType(rawValue: viewTypeControl.selectedSegment)
-  }
-  
+//  @IBAction func handleViewTypeControl(_ sender: NSSegmentedControl)
+//  {
+//    viewType = ViewType(rawValue: viewTypeControl.selectedSegment)
+//  }
+//  
   func set(animationStep newValue:Int)
   {
     guard (newValue >= 1) && (newValue <= dataCount) else { return }
@@ -301,9 +288,9 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, I
     
     if node > animationStep { animationStep = node }
   }
-  
-  @IBAction func handleZoomSlider(_ sender: NSSlider)
-  {
-    activeView?.zoom = zoom
-  }
+//  
+//  @IBAction func handleZoomSlider(_ sender: NSSlider)
+//  {
+//    activeView?.zoom = zoom
+//  }
 }

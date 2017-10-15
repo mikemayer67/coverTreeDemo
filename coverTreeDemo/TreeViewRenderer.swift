@@ -1,23 +1,27 @@
 //
-//  PolarView.swift
+//  TreeViewRenderer.swift
 //  coverTreeDemo
 //
-//  Created by Mike Mayer on 9/14/17.
+//  Created by Mike Mayer on 10/15/17.
 //  Copyright © 2017 VMWishes. All rights reserved.
 //
 
 import Cocoa
 
-class PolarView: CoverTreeView
+class TreeViewRenderer : CoverTreeRenderer
 {
+  override init(_ view:CoverTreeView)
+  {
+    super.init(view)
+  }
   
   override func draw(_ dirtyRect: NSRect)
   {
-    super.draw(dirtyRect)
-    print("Draw PolarView: \(dirtyRect) [\(self.isHidden ? "hidden" : "visible")]")
-
-    NSColor.yellow.setFill()
-    bounds.fill()
+    Swift.print("Draw \(dirtyRect) using \(self)")
+    let bounds = view.bounds
+    
+    NSColor.white.setFill()
+    NSRectFill(bounds)
     
     let path = CGMutablePath()
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.maxY))
@@ -29,18 +33,10 @@ class PolarView: CoverTreeView
     path.move   (to: CGPoint(x: bounds.maxX, y: bounds.minY))
     path.addLine(to: CGPoint(x: bounds.minX, y: bounds.maxY))
     
-    let context = NSGraphicsContext.current?.cgContext;
+    let context = NSGraphicsContext.current()?.cgContext;
     
-    context?.setLineWidth(5.0)
-    context?.setStrokeColor(NSColor.red.cgColor)
+    context?.setLineWidth(3.0)
     context?.addPath(path)
     context?.drawPath(using: .stroke)
   }
-  
-  override func focus(on node: Int)
-  {
-    Swift.print("Focus PolarView on node \(node)")
-  }
-
-  
 }

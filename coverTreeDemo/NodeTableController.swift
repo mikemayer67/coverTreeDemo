@@ -32,7 +32,7 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
     guard tableColumn != nil else { return nil }
     let column = tableColumn!.identifier
         
-    let cell = tableView.makeView(withIdentifier: column, owner: self) as! NSTableCellView
+    let cell = tableView.make(withIdentifier: column, owner: self) as! NSTableCellView
     
     guard cell.textField != nil else { print("Null textField... returning \(cell)"); return cell }
     
@@ -40,7 +40,7 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
     
     var value : String?
     
-    switch column.rawValue
+    switch column
     {
     case "NodeColumn":
       value = "\(node.ID)"
