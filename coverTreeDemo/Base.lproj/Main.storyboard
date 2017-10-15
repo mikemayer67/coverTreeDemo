@@ -783,7 +783,7 @@
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="COz-6p-U8e">
                                         <rect key="frame" x="350" y="19" width="45" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="0LS-g4-bRP"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="0LS-g4-bRP"/>
                                             <constraint firstAttribute="height" constant="22" id="mXD-rN-Iiy"/>
                                         </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="2" drawsBackground="YES" id="wek-L6-LnH">
@@ -848,7 +848,7 @@
                                         <rect key="frame" x="470" y="19" width="45" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="tZ7-s4-sDn"/>
-                                            <constraint firstAttribute="width" constant="45" id="yli-e8-lpH"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="yli-e8-lpH"/>
                                         </constraints>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="20" drawsBackground="YES" id="Zuh-Cb-a1O">
                                             <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="bME-Vi-1qS">
@@ -1000,9 +1000,10 @@
                                     <constraint firstItem="AFm-49-XRq" firstAttribute="baseline" secondItem="lU2-Zq-05B" secondAttribute="baseline" id="8eo-sA-UY9"/>
                                     <constraint firstItem="snx-cv-KEP" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="Bnm-dS-HPq"/>
                                     <constraint firstItem="hTF-hm-ZVi" firstAttribute="leading" secondItem="snx-cv-KEP" secondAttribute="trailing" constant="46" id="Ct6-1O-HSr"/>
-                                    <constraint firstItem="CBO-sM-ROo" firstAttribute="leading" secondItem="snx-cv-KEP" secondAttribute="trailing" constant="8" id="JX0-M8-lZF"/>
+                                    <constraint firstItem="CBO-sM-ROo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="snx-cv-KEP" secondAttribute="trailing" constant="8" symbolic="YES" id="JX0-M8-lZF"/>
                                     <constraint firstItem="AFm-49-XRq" firstAttribute="leading" secondItem="rCS-YY-h2N" secondAttribute="trailing" constant="33" id="LC7-TA-tzD"/>
                                     <constraint firstItem="ola-Zm-BfY" firstAttribute="baseline" secondItem="aR7-GN-Aib" secondAttribute="baseline" id="Lfv-X2-329"/>
+                                    <constraint firstAttribute="trailing" secondItem="CBO-sM-ROo" secondAttribute="trailing" constant="920" id="Og9-4U-9aT"/>
                                     <constraint firstItem="lU2-Zq-05B" firstAttribute="leading" secondItem="AFm-49-XRq" secondAttribute="trailing" constant="8" id="Pe4-Pc-y9q"/>
                                     <constraint firstItem="aR7-GN-Aib" firstAttribute="leading" secondItem="T5n-s8-As3" secondAttribute="leading" constant="20" symbolic="YES" id="Tf5-9I-jwz"/>
                                     <constraint firstAttribute="trailing" secondItem="lU2-Zq-05B" secondAttribute="trailing" constant="20" id="TtI-33-btz"/>
@@ -1010,9 +1011,11 @@
                                     <constraint firstItem="aR7-GN-Aib" firstAttribute="baseline" secondItem="CBO-sM-ROo" secondAttribute="baseline" id="XCz-5Q-4IS"/>
                                     <constraint firstItem="rCS-YY-h2N" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="XdK-x4-6m3"/>
                                     <constraint firstAttribute="trailing" secondItem="gox-Xr-iR9" secondAttribute="trailing" constant="20" id="XuY-ZP-Y2C"/>
-                                    <constraint firstItem="eZR-ZQ-Num" firstAttribute="leading" secondItem="ola-Zm-BfY" secondAttribute="trailing" constant="8" id="c4p-aH-ScA"/>
+                                    <constraint firstItem="eZR-ZQ-Num" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ola-Zm-BfY" secondAttribute="trailing" constant="8" symbolic="YES" id="c4p-aH-ScA"/>
+                                    <constraint firstItem="gox-Xr-iR9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T5n-s8-As3" secondAttribute="leading" constant="20" symbolic="YES" id="cRX-qi-dhd"/>
                                     <constraint firstItem="aR7-GN-Aib" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="cbi-EH-ELH"/>
                                     <constraint firstItem="zv4-PF-98L" firstAttribute="leading" secondItem="T5n-s8-As3" secondAttribute="leading" constant="20" id="e10-Ad-UOv"/>
+                                    <constraint firstAttribute="trailing" secondItem="eZR-ZQ-Num" secondAttribute="trailing" constant="716" id="g1B-2b-NFP"/>
                                     <constraint firstItem="lU2-Zq-05B" firstAttribute="centerY" secondItem="T5n-s8-As3" secondAttribute="centerY" id="gbI-6h-wA0"/>
                                     <constraint firstAttribute="height" constant="60" id="r5X-j8-9Ah"/>
                                     <constraint firstItem="eZR-ZQ-Num" firstAttribute="baseline" secondItem="aR7-GN-Aib" secondAttribute="baseline" id="x0q-bs-b47"/>
@@ -1319,13 +1322,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-Ww-8se" customClass="TreeView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-Ww-8se" customClass="TreeView" customModule="coverTreeDemo" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
                                                     </customView>
-                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3F0-a1-cWT" customClass="PolarView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="3F0-a1-cWT" customClass="PolarView" customModule="coverTreeDemo" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
                                                     </customView>
-                                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0j2-bf-paw" customClass="SpatialView" customModule="coverTreeDemo" customModuleProvider="target">
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="0j2-bf-paw" customClass="SpatialView" customModule="coverTreeDemo" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="1048" height="333"/>
                                                     </customView>
                                                 </subviews>

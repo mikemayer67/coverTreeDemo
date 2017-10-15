@@ -8,10 +8,15 @@
 
 import Cocoa
 
+protocol InfoTextControllerDelegate
+{
+  func selectedNode(didChangeTo node:Int, sender:Any)
+}
+
 class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegate
 {
   @IBOutlet weak var textView : NSTextView!
-  @IBOutlet weak var viewController : ViewController!
+  var delegate : InfoTextControllerDelegate?
   
   private var infoStrings = [[NSAttributedString]]()
   
@@ -76,10 +81,9 @@ class InfoTextController: NSObject, CoverTreeGenerationLogger, NSTextViewDelegat
   
   func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool
   {
-    if let linkString = link as? String,
-      let linkID = Int(linkString)
+    if let linkString = link as? String, let linkID = Int(linkString)
     {
-      viewController.select(node: linkID)
+      delegate?.selectedNode(didChangeTo: linkID, sender: self)
     }
     return true
   }

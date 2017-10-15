@@ -118,10 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				274E20771F5FAC600021A050 /* Main.storyboard */,
+				27C33E421F734CC10078C010 /* InfoTextView.swift */,
 				27CF65D11F6A4C6600D38F80 /* TreeView.swift */,
 				27346AD91F89AA6A00843C41 /* PolarView.swift */,
 				27346ADB1F89AB0100843C41 /* SpatialView.swift */,
-				27C33E421F734CC10078C010 /* InfoTextView.swift */,
 				27346ADD1F8A4C2800843C41 /* CoverTreeView.swift */,
 			);
 			name = View;

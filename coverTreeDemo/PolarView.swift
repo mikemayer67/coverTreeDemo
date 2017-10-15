@@ -14,7 +14,8 @@ class PolarView: CoverTreeView
   override func draw(_ dirtyRect: NSRect)
   {
     super.draw(dirtyRect)
-    
+    print("Draw PolarView: \(dirtyRect) [\(self.isHidden ? "hidden" : "visible")]")
+
     NSColor.yellow.setFill()
     bounds.fill()
     

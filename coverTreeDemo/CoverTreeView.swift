@@ -10,9 +10,12 @@ import Cocoa
 
 class CoverTreeView : NSView
 {
-  private var redrawTimer : Timer?
+  var coverTree : CoverTree!
   
+  private var redrawTimer : Timer?
   private var needsRedraw = true
+  
+  override var isOpaque : Bool { return true }
   
   var zoom : CGFloat = 0.0
   {

@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "coverTreeDemo/SpatialView.swift"
-            timestampString = "529157335.781569"
+            timestampString = "529721667.397665"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "focus(on:)"
             landmarkType = "7">
          </BreakpointContent>

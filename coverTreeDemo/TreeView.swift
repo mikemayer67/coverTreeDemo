@@ -15,6 +15,7 @@ class TreeView: CoverTreeView
   override func draw(_ dirtyRect: NSRect)
   {
     super.draw(dirtyRect)
+    print("Draw TreeView: \(dirtyRect) [\(self.isHidden ? "hidden" : "visible")]")
     
     NSColor.white.setFill()
     bounds.fill()

@@ -10,12 +10,17 @@ import Cocoa
 
 let kColumnPad : CGFloat = 10.0
 
+protocol NodeTableControllerDelegate
+{
+  func selectedNode(didChangeTo node:Int, sender:Any)
+}
+
 class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource, NSTextViewDelegate
 {
   var coverTree : CoverTree!
   
   @IBOutlet weak var tableView : NSTableView!
-  @IBOutlet weak var viewController : ViewController!
+  var delegate : NodeTableControllerDelegate?
   
   func numberOfRows(in tableView: NSTableView) -> Int
   {
@@ -108,7 +113,8 @@ class NodeTableController: NSObject, NSTableViewDelegate, NSTableViewDataSource,
   
   func tableViewSelectionDidChange(_ notification: Notification)
   {
-    viewController.select(node: 1 + self.tableView.selectedRow)
+    let node = 1 + self.tableView.selectedRow
+    delegate?.selectedNode(didChangeTo: node, sender: self)
   }
   
   func select(node:Int)

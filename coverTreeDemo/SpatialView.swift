@@ -14,7 +14,8 @@ class SpatialView: CoverTreeView
   override func draw(_ dirtyRect: NSRect)
   {
     super.draw(dirtyRect)
-    
+    print("Draw SpatialView: \(dirtyRect) [\(self.isHidden ? "hidden" : "visible")]")
+
     NSColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0).setFill()
     bounds.fill()
     

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
+class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate, InfoTextControllerDelegate, NodeTableControllerDelegate
 {
   enum ViewType : Int {
     case treeView    = 0
@@ -58,8 +58,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   override func awakeFromNib()
   {
     super.awakeFromNib()
-    nodeTableController.viewController = self
-    infoTextController.viewController = self
+    nodeTableController.delegate = self
+    infoTextController.delegate = self
   }
   
   override func viewDidLoad()
@@ -248,6 +248,10 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
     viewTypeControl.segmentCount = ( dataDimension > 3 ? 2 : 3 )
     viewType = .treeView
     
+    treeView.coverTree = ct
+    polarView.coverTree = ct
+    spatialView.coverTree = ct
+    
     generated = true
   }
   
@@ -290,10 +294,10 @@ class ViewController: NSViewController, NSTextFieldDelegate, NSWindowDelegate
   
   // MARK :- Cross view methods
   
-  func select(node:Int)
+  func selectedNode(didChangeTo node: Int, sender: Any)
   {
-    nodeTableController.select(node:node)
-    infoTextController.select(node:node)
+    if (sender as? NodeTableController) != nodeTableController { nodeTableController.select(node:node) }
+    if (sender as? InfoTextController)  != infoTextController  { infoTextController.select(node:node)  }
     
     if node > animationStep { animationStep = node }
   }
